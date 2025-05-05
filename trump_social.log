@@ -1,0 +1,656 @@
+2025-05-04 19:06:12,522 - config - INFO - 配置初始化完成
+2025-05-04 19:06:12,522 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:06:12,522 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:06:12,522 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-04 19:06:12,522 - __main__ - INFO - 持续运行模式，间隔时间: 10分钟
+2025-05-04 19:06:12,523 - __main__ - INFO - 运行时间: 2025-05-04 19:06:12
+2025-05-04 19:06:12,523 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-04 19:06:12,523 - __main__ - ERROR - 获取上次帖子ID失败: Expecting value: line 1 column 1 (char 0)
+2025-05-04 19:06:12,523 - __main__ - INFO - 首次运行，尚无历史记录
+2025-05-04 19:06:12,523 - config - INFO - 配置初始化完成
+2025-05-04 19:06:12,523 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:06:12,523 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:06:12,523 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-04 19:06:12,524 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-04 19:06:14,842 - scraper - INFO - 页面获取成功
+2025-05-04 19:06:14,843 - scraper - ERROR - 未找到帖子
+2025-05-04 19:06:14,843 - __main__ - WARNING - 未能获取任何帖子
+2025-05-04 19:06:14,843 - __main__ - INFO - 等待 10 分钟后再次运行...
+2025-05-04 19:06:44,077 - __main__ - INFO - 程序被用户中断
+2025-05-04 19:17:12,770 - config - INFO - 配置初始化完成
+2025-05-04 19:17:12,770 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:17:12,771 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:17:12,771 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-04 19:17:12,771 - WDM - INFO - ====== WebDriver manager ======
+2025-05-04 19:17:13,310 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-04 19:17:13,807 - __main__ - ERROR - 获取页面失败: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2648)
+2025-05-04 19:20:31,721 - config - INFO - 配置初始化完成
+2025-05-04 19:20:31,721 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:20:31,721 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:20:31,722 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-04 19:20:31,722 - WDM - INFO - ====== WebDriver manager ======
+2025-05-04 19:20:32,256 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2025-05-04 19:20:32,613 - __main__ - ERROR - 获取页面失败: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2648)
+2025-05-04 19:25:29,867 - config - INFO - 配置初始化完成
+2025-05-04 19:25:29,868 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:25:29,868 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:25:29,868 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-04 19:25:30,147 - __main__ - ERROR - 获取页面失败: BrowserType.launch() got an unexpected keyword argument 'ignore_https_errors'
+2025-05-04 19:26:08,566 - config - INFO - 配置初始化完成
+2025-05-04 19:26:08,567 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:26:08,567 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:26:08,567 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-04 19:26:42,655 - __main__ - ERROR - 获取页面失败: Page.wait_for_selector: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("div[data-index='0']") to be visible
+
+2025-05-04 19:28:45,130 - config - INFO - 配置初始化完成
+2025-05-04 19:28:45,130 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-04 19:28:45,130 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-04 19:28:45,130 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 10:22:37,308 - config - INFO - 配置初始化完成
+2025-05-05 10:22:37,309 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 10:22:37,309 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 10:22:37,309 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 10:38:58,466 - config - INFO - 配置初始化完成
+2025-05-05 10:38:58,466 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 10:38:58,466 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 10:38:58,466 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 10:38:58,466 - __main__ - INFO - 持续运行模式，间隔时间: 10分钟
+2025-05-05 10:38:58,467 - __main__ - INFO - 运行时间: 2025-05-05 10:38:58
+2025-05-05 10:38:58,467 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 10:38:58,467 - __main__ - ERROR - 获取上次帖子ID失败: Expecting value: line 1 column 1 (char 0)
+2025-05-05 10:38:58,467 - __main__ - INFO - 首次运行，尚无历史记录
+2025-05-05 10:38:58,467 - config - INFO - 配置初始化完成
+2025-05-05 10:38:58,467 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 10:38:58,467 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 10:38:58,468 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 10:38:58,468 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 10:39:06,978 - scraper - INFO - 帖子内容已加载
+2025-05-05 10:39:07,699 - scraper - INFO - 页面获取成功
+2025-05-05 10:39:07,714 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 10:39:07,714 - __main__ - INFO - 成功爬取新帖子 (ID: 114452877224020351)
+2025-05-05 10:39:07,714 - __main__ - INFO - 发布时间: 2025-05-05 10:31:00
+2025-05-05 10:39:07,715 - __main__ - INFO - 文本内容: I don’t need to have Karl Rove of FoxNews to tell ...
+2025-05-05 10:39:07,715 - __main__ - INFO - 等待 10 分钟后再次运行...
+2025-05-05 10:39:19,049 - __main__ - INFO - 程序被用户中断
+2025-05-05 11:37:48,388 - config - INFO - 配置初始化完成
+2025-05-05 11:37:48,388 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:37:48,388 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:37:48,388 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:37:48,388 - __main__ - INFO - 持续运行模式，间隔时间: 10分钟
+2025-05-05 11:37:48,389 - __main__ - INFO - 运行时间: 2025-05-05 11:37:48
+2025-05-05 11:37:48,389 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 11:37:48,389 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 11:37:48,389 - config - INFO - 配置初始化完成
+2025-05-05 11:37:48,389 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:37:48,389 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:37:48,389 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:37:48,390 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 11:37:56,431 - scraper - INFO - 帖子内容已加载
+2025-05-05 11:37:57,149 - scraper - INFO - 页面获取成功
+2025-05-05 11:37:57,163 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 11:37:57,164 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 11:37:57,164 - __main__ - INFO - 等待 10 分钟后再次运行...
+2025-05-05 11:38:22,420 - __main__ - INFO - 程序被用户中断
+2025-05-05 11:44:59,617 - config - INFO - 配置初始化完成
+2025-05-05 11:44:59,617 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:44:59,617 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:44:59,617 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:44:59,617 - __main__ - INFO - 持续运行模式，间隔时间: 10分钟
+2025-05-05 11:44:59,617 - __main__ - INFO - 运行时间: 2025-05-05 11:44:59
+2025-05-05 11:44:59,618 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 11:44:59,618 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 11:44:59,618 - config - INFO - 配置初始化完成
+2025-05-05 11:44:59,618 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:44:59,618 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:44:59,618 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:44:59,618 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 11:45:07,459 - scraper - INFO - 帖子内容已加载
+2025-05-05 11:45:08,162 - scraper - INFO - 页面获取成功
+2025-05-05 11:45:08,176 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 11:45:08,176 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 11:45:08,177 - __main__ - INFO - 等待 10 分钟后再次运行...
+2025-05-05 11:45:43,154 - __main__ - INFO - 程序被用户中断
+2025-05-05 11:46:29,705 - __main__ - INFO - 配置初始化完成
+2025-05-05 11:46:29,706 - __main__ - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:46:29,706 - __main__ - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:46:29,706 - __main__ - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:46:43,665 - config - INFO - 配置初始化完成
+2025-05-05 11:46:43,665 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:46:43,666 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:46:43,666 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:46:43,666 - __main__ - INFO - 持续运行模式，间隔时间: 10分钟
+2025-05-05 11:46:43,666 - __main__ - INFO - 运行时间: 2025-05-05 11:46:43
+2025-05-05 11:46:43,666 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 11:46:43,667 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 11:46:43,667 - config - INFO - 配置初始化完成
+2025-05-05 11:46:43,667 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:46:43,667 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:46:43,667 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:46:43,667 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 11:46:49,979 - scraper - INFO - 帖子内容已加载
+2025-05-05 11:46:50,633 - scraper - INFO - 页面获取成功
+2025-05-05 11:46:50,647 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 11:46:50,647 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 11:46:50,647 - __main__ - INFO - 等待 10 分钟后再次运行...
+2025-05-05 11:47:28,591 - __main__ - INFO - 程序被用户中断
+2025-05-05 11:47:39,681 - __main__ - INFO - 配置初始化完成
+2025-05-05 11:47:39,682 - __main__ - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:47:39,682 - __main__ - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:47:39,682 - __main__ - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:48:27,882 - config - INFO - 配置初始化完成
+2025-05-05 11:48:27,882 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:48:27,883 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:48:27,883 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:48:27,883 - __main__ - INFO - 持续运行模式，间隔时间: 30分钟
+2025-05-05 11:48:27,883 - __main__ - INFO - 运行时间: 2025-05-05 11:48:27
+2025-05-05 11:48:27,883 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 11:48:27,884 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 11:48:27,884 - config - INFO - 配置初始化完成
+2025-05-05 11:48:27,884 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 11:48:27,884 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 11:48:27,884 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 11:48:27,885 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 11:48:34,407 - scraper - INFO - 帖子内容已加载
+2025-05-05 11:48:35,047 - scraper - INFO - 页面获取成功
+2025-05-05 11:48:35,066 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 11:48:35,066 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 11:48:35,066 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 12:18:35,071 - __main__ - INFO - 运行时间: 2025-05-05 12:18:35
+2025-05-05 12:18:35,072 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 12:18:35,073 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 12:18:35,074 - config - INFO - 配置初始化完成
+2025-05-05 12:18:35,074 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 12:18:35,074 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 12:18:35,075 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 12:18:35,075 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 12:18:42,033 - scraper - INFO - 帖子内容已加载
+2025-05-05 12:18:42,705 - scraper - INFO - 页面获取成功
+2025-05-05 12:18:42,715 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 12:18:42,715 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 12:18:42,716 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 12:19:14,858 - __main__ - INFO - 程序被用户中断
+2025-05-05 15:35:47,815 - config - INFO - 配置初始化完成
+2025-05-05 15:35:47,815 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 15:35:47,816 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 15:35:47,816 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 15:35:47,816 - __main__ - INFO - 持续运行模式，间隔时间: 30分钟
+2025-05-05 15:35:47,816 - __main__ - INFO - 运行时间: 2025-05-05 15:35:47
+2025-05-05 15:35:47,816 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 15:35:47,816 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 15:35:47,817 - config - INFO - 配置初始化完成
+2025-05-05 15:35:47,817 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 15:35:47,817 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 15:35:47,817 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 15:35:47,817 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 15:35:57,986 - scraper - INFO - 帖子内容已加载
+2025-05-05 15:35:58,662 - scraper - INFO - 页面获取成功
+2025-05-05 15:35:58,840 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 15:35:58,841 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 15:35:58,841 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 16:05:58,857 - __main__ - INFO - 运行时间: 2025-05-05 16:05:58
+2025-05-05 16:05:58,858 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 16:05:58,858 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 16:05:58,858 - config - INFO - 配置初始化完成
+2025-05-05 16:05:58,859 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 16:05:58,859 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 16:05:58,859 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 16:05:58,859 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 16:06:22,412 - scraper - INFO - 帖子内容已加载
+2025-05-05 16:06:23,012 - scraper - INFO - 页面获取成功
+2025-05-05 16:06:23,022 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 16:06:23,022 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 16:06:23,022 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 16:36:23,036 - __main__ - INFO - 运行时间: 2025-05-05 16:36:23
+2025-05-05 16:36:23,036 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 16:36:23,037 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 16:36:23,039 - config - INFO - 配置初始化完成
+2025-05-05 16:36:23,039 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 16:36:23,040 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 16:36:23,040 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 16:36:23,040 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 16:36:31,496 - scraper - INFO - 帖子内容已加载
+2025-05-05 16:36:32,077 - scraper - INFO - 页面获取成功
+2025-05-05 16:36:32,085 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 16:36:32,085 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 16:36:32,085 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 17:06:32,096 - __main__ - INFO - 运行时间: 2025-05-05 17:06:32
+2025-05-05 17:06:32,097 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 17:06:32,097 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 17:06:32,098 - config - INFO - 配置初始化完成
+2025-05-05 17:06:32,098 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 17:06:32,099 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 17:06:32,099 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 17:06:32,099 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 17:06:39,481 - scraper - INFO - 帖子内容已加载
+2025-05-05 17:06:40,101 - scraper - INFO - 页面获取成功
+2025-05-05 17:06:40,111 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 17:06:40,111 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 17:06:40,111 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 17:36:40,120 - __main__ - INFO - 运行时间: 2025-05-05 17:36:40
+2025-05-05 17:36:40,121 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 17:36:40,122 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 17:36:40,123 - config - INFO - 配置初始化完成
+2025-05-05 17:36:40,124 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 17:36:40,124 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 17:36:40,124 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 17:36:40,125 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 17:36:46,376 - scraper - INFO - 帖子内容已加载
+2025-05-05 17:36:46,992 - scraper - INFO - 页面获取成功
+2025-05-05 17:36:47,001 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 17:36:47,001 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 17:36:47,002 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 18:06:47,010 - __main__ - INFO - 运行时间: 2025-05-05 18:06:47
+2025-05-05 18:06:47,011 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 18:06:47,011 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 18:06:47,012 - config - INFO - 配置初始化完成
+2025-05-05 18:06:47,013 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 18:06:47,013 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 18:06:47,013 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 18:06:47,014 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 18:06:55,723 - scraper - INFO - 帖子内容已加载
+2025-05-05 18:06:56,332 - scraper - INFO - 页面获取成功
+2025-05-05 18:06:56,341 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 18:06:56,341 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 18:06:56,341 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 18:36:56,350 - __main__ - INFO - 运行时间: 2025-05-05 18:36:56
+2025-05-05 18:36:56,350 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 18:36:56,351 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 18:36:56,351 - config - INFO - 配置初始化完成
+2025-05-05 18:36:56,352 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 18:36:56,352 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 18:36:56,352 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 18:36:56,352 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 18:37:03,113 - scraper - INFO - 帖子内容已加载
+2025-05-05 18:37:03,707 - scraper - INFO - 页面获取成功
+2025-05-05 18:37:03,716 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 18:37:03,716 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 18:37:03,716 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 19:07:03,725 - __main__ - INFO - 运行时间: 2025-05-05 19:07:03
+2025-05-05 19:07:03,726 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 19:07:03,727 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 19:07:03,728 - config - INFO - 配置初始化完成
+2025-05-05 19:07:03,729 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 19:07:03,730 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 19:07:03,730 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 19:07:03,731 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 19:07:09,977 - scraper - INFO - 帖子内容已加载
+2025-05-05 19:07:10,598 - scraper - INFO - 页面获取成功
+2025-05-05 19:07:10,607 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 19:07:10,607 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 19:07:10,607 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 19:37:10,616 - __main__ - INFO - 运行时间: 2025-05-05 19:37:10
+2025-05-05 19:37:10,617 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 19:37:10,619 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 19:37:10,620 - config - INFO - 配置初始化完成
+2025-05-05 19:37:10,621 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 19:37:10,622 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 19:37:10,623 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 19:37:10,624 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 19:37:19,309 - scraper - INFO - 帖子内容已加载
+2025-05-05 19:37:19,912 - scraper - INFO - 页面获取成功
+2025-05-05 19:37:19,920 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 19:37:19,921 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 19:37:19,921 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 20:07:19,929 - __main__ - INFO - 运行时间: 2025-05-05 20:07:19
+2025-05-05 20:07:19,930 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 20:07:19,931 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 20:07:19,932 - config - INFO - 配置初始化完成
+2025-05-05 20:07:19,932 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 20:07:19,933 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 20:07:19,933 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 20:07:19,933 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 20:07:30,268 - scraper - INFO - 帖子内容已加载
+2025-05-05 20:07:30,941 - scraper - INFO - 页面获取成功
+2025-05-05 20:07:30,950 - scraper - INFO - 保存帖子数据成功: 114452877224020351
+2025-05-05 20:07:30,950 - __main__ - INFO - 没有新帖子 (ID: 114452877224020351)
+2025-05-05 20:07:30,951 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 20:37:30,959 - __main__ - INFO - 运行时间: 2025-05-05 20:37:30
+2025-05-05 20:37:30,959 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 20:37:30,959 - __main__ - INFO - 上次爬取的帖子ID: 114452877224020351
+2025-05-05 20:37:30,960 - config - INFO - 配置初始化完成
+2025-05-05 20:37:30,960 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 20:37:30,960 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 20:37:30,960 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 20:37:30,961 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 20:37:40,486 - scraper - INFO - 帖子内容已加载
+2025-05-05 20:37:41,082 - scraper - INFO - 页面获取成功
+2025-05-05 20:37:41,090 - downloader - INFO - 开始下载图片: https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/114/455/169/253/426/575/small/7348035f29abb350.jpg
+2025-05-05 20:37:41,886 - downloader - INFO - 图片下载成功: e:\core_dev_2025\stupid_trump_index\pics\114455169386927049_image0.jpg
+2025-05-05 20:37:41,889 - scraper - INFO - 保存帖子数据成功: 114455169386927049
+2025-05-05 20:37:41,889 - __main__ - INFO - 成功爬取新帖子 (ID: 114455169386927049)
+2025-05-05 20:37:41,889 - __main__ - INFO - 发布时间: 2025-05-05 20:14:00
+2025-05-05 20:37:41,890 - __main__ - INFO - 图片数量: 1
+2025-05-05 20:37:41,890 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 21:07:41,898 - __main__ - INFO - 运行时间: 2025-05-05 21:07:41
+2025-05-05 21:07:41,898 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 21:07:41,899 - __main__ - INFO - 上次爬取的帖子ID: 114455169386927049
+2025-05-05 21:07:41,899 - config - INFO - 配置初始化完成
+2025-05-05 21:07:41,899 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 21:07:41,899 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 21:07:41,899 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 21:07:41,899 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 21:07:51,163 - scraper - INFO - 帖子内容已加载
+2025-05-05 21:07:51,778 - scraper - INFO - 页面获取成功
+2025-05-05 21:07:51,786 - downloader - INFO - 开始下载图片: https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/114/455/169/253/426/575/small/7348035f29abb350.jpg
+2025-05-05 21:07:52,634 - downloader - INFO - 图片下载成功: e:\core_dev_2025\stupid_trump_index\pics\114455169386927049_image0.jpg
+2025-05-05 21:07:52,635 - scraper - INFO - 保存帖子数据成功: 114455169386927049
+2025-05-05 21:07:52,636 - __main__ - INFO - 没有新帖子 (ID: 114455169386927049)
+2025-05-05 21:07:52,636 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 21:37:52,644 - __main__ - INFO - 运行时间: 2025-05-05 21:37:52
+2025-05-05 21:37:52,645 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 21:37:52,647 - __main__ - INFO - 上次爬取的帖子ID: 114455169386927049
+2025-05-05 21:37:52,648 - config - INFO - 配置初始化完成
+2025-05-05 21:37:52,649 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 21:37:52,650 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 21:37:52,650 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 21:37:52,651 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 21:38:00,977 - scraper - INFO - 帖子内容已加载
+2025-05-05 21:38:01,619 - scraper - INFO - 页面获取成功
+2025-05-05 21:38:01,627 - downloader - INFO - 开始下载图片: https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/114/455/169/253/426/575/small/7348035f29abb350.jpg
+2025-05-05 21:38:02,412 - downloader - INFO - 图片下载成功: e:\core_dev_2025\stupid_trump_index\pics\114455169386927049_image0.jpg
+2025-05-05 21:38:02,413 - scraper - INFO - 保存帖子数据成功: 114455169386927049
+2025-05-05 21:38:02,413 - __main__ - INFO - 没有新帖子 (ID: 114455169386927049)
+2025-05-05 21:38:02,413 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 22:08:02,421 - __main__ - INFO - 运行时间: 2025-05-05 22:08:02
+2025-05-05 22:08:02,421 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 22:08:02,422 - __main__ - INFO - 上次爬取的帖子ID: 114455169386927049
+2025-05-05 22:08:02,422 - config - INFO - 配置初始化完成
+2025-05-05 22:08:02,422 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 22:08:02,422 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 22:08:02,423 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 22:08:02,423 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 22:08:24,241 - scraper - INFO - 帖子内容已加载
+2025-05-05 22:08:24,865 - scraper - INFO - 页面获取成功
+2025-05-05 22:08:24,873 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/94/s8/2/J/r/S/H/JrSHy.caa.mp4?b=1&u=ummtf
+2025-05-05 22:08:31,656 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114455608513522948.mp4
+2025-05-05 22:08:31,659 - scraper - INFO - 保存帖子数据成功: 114455608513522948
+2025-05-05 22:08:31,659 - __main__ - INFO - 成功爬取新帖子 (ID: 114455608513522948)
+2025-05-05 22:08:31,659 - __main__ - INFO - 发布时间: 2025-05-05 22:06:00
+2025-05-05 22:08:31,660 - __main__ - INFO - 文本内容: Senator Markwayne Mullin: “President Trump is the ...
+2025-05-05 22:08:31,660 - __main__ - INFO - 包含视频: 是
+2025-05-05 22:08:31,661 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 22:38:31,669 - __main__ - INFO - 运行时间: 2025-05-05 22:38:31
+2025-05-05 22:38:31,670 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 22:38:31,671 - __main__ - INFO - 上次爬取的帖子ID: 114455608513522948
+2025-05-05 22:38:31,673 - config - INFO - 配置初始化完成
+2025-05-05 22:38:31,673 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 22:38:31,674 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 22:38:31,675 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 22:38:31,675 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 22:38:39,771 - scraper - INFO - 帖子内容已加载
+2025-05-05 22:38:40,582 - scraper - INFO - 页面获取成功
+2025-05-05 22:38:40,590 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/1e/s8/2/r/t/S/H/rtSHy.caa.mp4?b=1&u=ummtf
+2025-05-05 22:38:49,013 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114455616542958903.mp4
+2025-05-05 22:38:49,016 - scraper - INFO - 保存帖子数据成功: 114455616542958903
+2025-05-05 22:38:49,016 - __main__ - INFO - 成功爬取新帖子 (ID: 114455616542958903)
+2025-05-05 22:38:49,017 - __main__ - INFO - 发布时间: 2025-05-05 22:08:00
+2025-05-05 22:38:49,017 - __main__ - INFO - 文本内容: “Small businesses are back in the driver's seat th...
+2025-05-05 22:38:49,017 - __main__ - INFO - 包含视频: 是
+2025-05-05 22:38:49,017 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 23:08:49,026 - __main__ - INFO - 运行时间: 2025-05-05 23:08:49
+2025-05-05 23:08:49,027 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 23:08:49,028 - __main__ - INFO - 上次爬取的帖子ID: 114455616542958903
+2025-05-05 23:08:49,030 - config - INFO - 配置初始化完成
+2025-05-05 23:08:49,030 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 23:08:49,031 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 23:08:49,031 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 23:08:49,031 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 23:09:02,866 - scraper - INFO - 帖子内容已加载
+2025-05-05 23:09:03,457 - scraper - INFO - 页面获取成功
+2025-05-05 23:09:03,465 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/73/s8/2/3/5/S/H/35SHy.caa.mp4?b=1&u=ummtf
+2025-05-05 23:10:42,404 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114455776425590388.mp4
+2025-05-05 23:10:42,407 - scraper - INFO - 保存帖子数据成功: 114455776425590388
+2025-05-05 23:10:42,408 - __main__ - INFO - 成功爬取新帖子 (ID: 114455776425590388)
+2025-05-05 23:10:42,409 - __main__ - INFO - 发布时间: 2025-05-05 22:49:00
+2025-05-05 23:10:42,409 - __main__ - INFO - 文本内容: BILL ACKMAN ON HARVARD AND UNIVERSITY FUNDING, THI...
+2025-05-05 23:10:42,409 - __main__ - INFO - 包含视频: 是
+2025-05-05 23:10:42,410 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-05 23:40:42,432 - __main__ - INFO - 运行时间: 2025-05-05 23:40:42
+2025-05-05 23:40:42,433 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-05 23:40:42,434 - __main__ - INFO - 上次爬取的帖子ID: 114455776425590388
+2025-05-05 23:40:42,435 - config - INFO - 配置初始化完成
+2025-05-05 23:40:42,435 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-05 23:40:42,436 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-05 23:40:42,436 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-05 23:40:42,436 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-05 23:40:53,657 - scraper - INFO - 帖子内容已加载
+2025-05-05 23:40:54,287 - scraper - INFO - 页面获取成功
+2025-05-05 23:40:54,295 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/cd/s8/2/n/Q/T/H/nQTHy.caa.mp4?b=1&u=ummtf
+2025-05-05 23:41:06,827 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114455976603502389.mp4
+2025-05-05 23:41:06,829 - scraper - INFO - 保存帖子数据成功: 114455976603502389
+2025-05-05 23:41:06,830 - __main__ - INFO - 成功爬取新帖子 (ID: 114455976603502389)
+2025-05-05 23:41:06,830 - __main__ - INFO - 发布时间: 2025-05-05 23:40:00
+2025-05-05 23:41:06,831 - __main__ - INFO - 文本内容: Secretary Scott Bessent: "President Trump has secu...
+2025-05-05 23:41:06,831 - __main__ - INFO - 包含视频: 是
+2025-05-05 23:41:06,832 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 00:11:06,855 - __main__ - INFO - 运行时间: 2025-05-06 00:11:06
+2025-05-06 00:11:06,855 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 00:11:06,856 - __main__ - INFO - 上次爬取的帖子ID: 114455976603502389
+2025-05-06 00:11:06,857 - config - INFO - 配置初始化完成
+2025-05-06 00:11:06,857 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 00:11:06,857 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 00:11:06,857 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 00:11:06,857 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 00:11:26,852 - scraper - INFO - 帖子内容已加载
+2025-05-06 00:11:27,433 - scraper - INFO - 页面获取成功
+2025-05-06 00:11:27,441 - downloader - INFO - 开始下载图片: https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/114/456/026/400/399/526/small/c177307cbcb91d02.jpg
+2025-05-06 00:11:28,179 - downloader - INFO - 图片下载成功: e:\core_dev_2025\stupid_trump_index\pics\114456026572229510_image0.jpg
+2025-05-06 00:11:28,182 - scraper - INFO - 保存帖子数据成功: 114456026572229510
+2025-05-06 00:11:28,183 - __main__ - INFO - 成功爬取新帖子 (ID: 114456026572229510)
+2025-05-06 00:11:28,184 - __main__ - INFO - 发布时间: 2025-05-05 23:52:00
+2025-05-06 00:11:28,184 - __main__ - INFO - 文本内容: This was so wonderful, 9 years ago today!
+2025-05-06 00:11:28,185 - __main__ - INFO - 图片数量: 1
+2025-05-06 00:11:28,186 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 00:41:28,201 - __main__ - INFO - 运行时间: 2025-05-06 00:41:28
+2025-05-06 00:41:28,202 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 00:41:28,203 - __main__ - INFO - 上次爬取的帖子ID: 114456026572229510
+2025-05-06 00:41:28,205 - config - INFO - 配置初始化完成
+2025-05-06 00:41:28,206 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 00:41:28,207 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 00:41:28,207 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 00:41:28,208 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 00:41:35,422 - scraper - INFO - 帖子内容已加载
+2025-05-06 00:41:36,032 - scraper - INFO - 页面获取成功
+2025-05-06 00:41:36,040 - downloader - INFO - 开始下载图片: https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/114/456/026/400/399/526/small/c177307cbcb91d02.jpg
+2025-05-06 00:41:36,767 - downloader - INFO - 图片下载成功: e:\core_dev_2025\stupid_trump_index\pics\114456026572229510_image0.jpg
+2025-05-06 00:41:36,770 - scraper - INFO - 保存帖子数据成功: 114456026572229510
+2025-05-06 00:41:36,770 - __main__ - INFO - 没有新帖子 (ID: 114456026572229510)
+2025-05-06 00:41:36,770 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 01:11:36,783 - __main__ - INFO - 运行时间: 2025-05-06 01:11:36
+2025-05-06 01:11:36,784 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 01:11:36,785 - __main__ - INFO - 上次爬取的帖子ID: 114456026572229510
+2025-05-06 01:11:36,787 - config - INFO - 配置初始化完成
+2025-05-06 01:11:36,788 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 01:11:36,789 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 01:11:36,789 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 01:11:36,790 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 01:11:45,595 - scraper - INFO - 帖子内容已加载
+2025-05-06 01:11:46,199 - scraper - INFO - 页面获取成功
+2025-05-06 01:11:46,207 - downloader - INFO - 开始下载图片: https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/114/456/026/400/399/526/small/c177307cbcb91d02.jpg
+2025-05-06 01:11:47,543 - downloader - INFO - 图片下载成功: e:\core_dev_2025\stupid_trump_index\pics\114456026572229510_image0.jpg
+2025-05-06 01:11:47,546 - scraper - INFO - 保存帖子数据成功: 114456026572229510
+2025-05-06 01:11:47,547 - __main__ - INFO - 没有新帖子 (ID: 114456026572229510)
+2025-05-06 01:11:47,548 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 01:41:47,559 - __main__ - INFO - 运行时间: 2025-05-06 01:41:47
+2025-05-06 01:41:47,560 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 01:41:47,562 - __main__ - INFO - 上次爬取的帖子ID: 114456026572229510
+2025-05-06 01:41:47,564 - config - INFO - 配置初始化完成
+2025-05-06 01:41:47,565 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 01:41:47,566 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 01:41:47,566 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 01:41:47,567 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 01:41:55,084 - scraper - INFO - 帖子内容已加载
+2025-05-06 01:41:55,696 - scraper - INFO - 页面获取成功
+2025-05-06 01:41:55,705 - scraper - INFO - 保存帖子数据成功: 114456445780203083
+2025-05-06 01:41:55,705 - __main__ - INFO - 成功爬取新帖子 (ID: 114456445780203083)
+2025-05-06 01:41:55,705 - __main__ - INFO - 发布时间: 2025-05-06 01:39:00
+2025-05-06 01:41:55,705 - __main__ - INFO - 文本内容: https://www.youtube.com/live/EmP6I1ucGRo?si=Xu5aEK...
+2025-05-06 01:41:55,705 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 02:11:55,715 - __main__ - INFO - 运行时间: 2025-05-06 02:11:55
+2025-05-06 02:11:55,716 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 02:11:55,717 - __main__ - INFO - 上次爬取的帖子ID: 114456445780203083
+2025-05-06 02:11:55,720 - config - INFO - 配置初始化完成
+2025-05-06 02:11:55,720 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 02:11:55,721 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 02:11:55,722 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 02:11:55,723 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 02:12:03,900 - scraper - INFO - 帖子内容已加载
+2025-05-06 02:12:04,526 - scraper - INFO - 页面获取成功
+2025-05-06 02:12:04,535 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 02:12:04,535 - __main__ - INFO - 成功爬取新帖子 (ID: 114456568203695294)
+2025-05-06 02:12:04,536 - __main__ - INFO - 发布时间: 2025-05-06 02:10:00
+2025-05-06 02:12:04,536 - __main__ - INFO - 文本内容: PROMISES MADE, PROMISES KEPT!
+2025-05-06 02:12:04,536 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 02:42:04,545 - __main__ - INFO - 运行时间: 2025-05-06 02:42:04
+2025-05-06 02:42:04,546 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 02:42:04,547 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 02:42:04,549 - config - INFO - 配置初始化完成
+2025-05-06 02:42:04,550 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 02:42:04,550 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 02:42:04,551 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 02:42:04,551 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 02:42:10,754 - scraper - INFO - 帖子内容已加载
+2025-05-06 02:42:11,362 - scraper - INFO - 页面获取成功
+2025-05-06 02:42:11,370 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 02:42:13,582 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 02:42:13,586 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 02:42:13,587 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 02:42:13,588 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 03:12:13,598 - __main__ - INFO - 运行时间: 2025-05-06 03:12:13
+2025-05-06 03:12:13,599 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 03:12:13,600 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 03:12:13,602 - config - INFO - 配置初始化完成
+2025-05-06 03:12:13,603 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 03:12:13,603 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 03:12:13,604 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 03:12:13,605 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 03:12:20,361 - scraper - INFO - 帖子内容已加载
+2025-05-06 03:12:20,964 - scraper - INFO - 页面获取成功
+2025-05-06 03:12:20,972 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 03:12:23,033 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 03:12:23,036 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 03:12:23,037 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 03:12:23,038 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 03:42:23,048 - __main__ - INFO - 运行时间: 2025-05-06 03:42:23
+2025-05-06 03:42:23,049 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 03:42:23,050 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 03:42:23,052 - config - INFO - 配置初始化完成
+2025-05-06 03:42:23,052 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 03:42:23,052 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 03:42:23,053 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 03:42:23,053 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 03:42:29,161 - scraper - INFO - 帖子内容已加载
+2025-05-06 03:42:29,768 - scraper - INFO - 页面获取成功
+2025-05-06 03:42:29,777 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 03:42:31,689 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 03:42:31,690 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 03:42:31,690 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 03:42:31,690 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 04:12:31,699 - __main__ - INFO - 运行时间: 2025-05-06 04:12:31
+2025-05-06 04:12:31,700 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 04:12:31,700 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 04:12:31,700 - config - INFO - 配置初始化完成
+2025-05-06 04:12:31,700 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 04:12:31,701 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 04:12:31,701 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 04:12:31,701 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 04:12:37,814 - scraper - INFO - 帖子内容已加载
+2025-05-06 04:12:38,391 - scraper - INFO - 页面获取成功
+2025-05-06 04:12:38,401 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 04:12:40,276 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 04:12:40,279 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 04:12:40,279 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 04:12:40,280 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 04:42:40,290 - __main__ - INFO - 运行时间: 2025-05-06 04:42:40
+2025-05-06 04:42:40,291 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 04:42:40,292 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 04:42:40,294 - config - INFO - 配置初始化完成
+2025-05-06 04:42:40,295 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 04:42:40,296 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 04:42:40,296 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 04:42:40,297 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 04:42:46,902 - scraper - INFO - 帖子内容已加载
+2025-05-06 04:42:47,489 - scraper - INFO - 页面获取成功
+2025-05-06 04:42:47,498 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 04:42:49,382 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 04:42:49,383 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 04:42:49,383 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 04:42:49,384 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 05:12:49,393 - __main__ - INFO - 运行时间: 2025-05-06 05:12:49
+2025-05-06 05:12:49,394 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 05:12:49,395 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 05:12:49,397 - config - INFO - 配置初始化完成
+2025-05-06 05:12:49,398 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 05:12:49,398 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 05:12:49,399 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 05:12:49,400 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 05:12:55,625 - scraper - INFO - 帖子内容已加载
+2025-05-06 05:12:56,213 - scraper - INFO - 页面获取成功
+2025-05-06 05:12:56,222 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 05:12:58,094 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 05:12:58,095 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 05:12:58,095 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 05:12:58,095 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 05:42:58,105 - __main__ - INFO - 运行时间: 2025-05-06 05:42:58
+2025-05-06 05:42:58,106 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 05:42:58,106 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 05:42:58,107 - config - INFO - 配置初始化完成
+2025-05-06 05:42:58,108 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 05:42:58,108 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 05:42:58,108 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 05:42:58,109 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 05:43:04,147 - scraper - INFO - 帖子内容已加载
+2025-05-06 05:43:04,745 - scraper - INFO - 页面获取成功
+2025-05-06 05:43:04,753 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 05:43:06,570 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 05:43:06,571 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 05:43:06,571 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 05:43:06,572 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 06:13:06,581 - __main__ - INFO - 运行时间: 2025-05-06 06:13:06
+2025-05-06 06:13:06,582 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 06:13:06,584 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 06:13:06,585 - config - INFO - 配置初始化完成
+2025-05-06 06:13:06,586 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 06:13:06,587 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 06:13:06,587 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 06:13:06,588 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 06:13:12,413 - scraper - INFO - 帖子内容已加载
+2025-05-06 06:13:13,009 - scraper - INFO - 页面获取成功
+2025-05-06 06:13:13,018 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 06:13:14,993 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 06:13:14,996 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 06:13:14,997 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 06:13:14,997 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 06:43:15,007 - __main__ - INFO - 运行时间: 2025-05-06 06:43:15
+2025-05-06 06:43:15,009 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 06:43:15,010 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 06:43:15,012 - config - INFO - 配置初始化完成
+2025-05-06 06:43:15,012 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 06:43:15,013 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 06:43:15,014 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 06:43:15,015 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 06:43:21,228 - scraper - INFO - 帖子内容已加载
+2025-05-06 06:43:21,809 - scraper - INFO - 页面获取成功
+2025-05-06 06:43:21,818 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 06:43:23,697 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 06:43:23,698 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 06:43:23,699 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 06:43:23,699 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 07:13:23,709 - __main__ - INFO - 运行时间: 2025-05-06 07:13:23
+2025-05-06 07:13:23,709 - __main__ - INFO - 开始运行特朗普社交媒体爬虫
+2025-05-06 07:13:23,710 - __main__ - INFO - 上次爬取的帖子ID: 114456568203695294
+2025-05-06 07:13:23,710 - config - INFO - 配置初始化完成
+2025-05-06 07:13:23,711 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-05-06 07:13:23,711 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-05-06 07:13:23,711 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-05-06 07:13:23,711 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-05-06 07:13:29,972 - scraper - INFO - 帖子内容已加载
+2025-05-06 07:13:30,586 - scraper - INFO - 页面获取成功
+2025-05-06 07:13:30,595 - downloader - INFO - 开始下载视频: https://1a-1791.com/video/fww1/ae/s8/2/z/9/V/H/z9VHy.caa.mp4?b=1&u=ummtf
+2025-05-06 07:13:32,464 - downloader - INFO - 视频下载成功: e:\core_dev_2025\stupid_trump_index\movs\114456568203695294.mp4
+2025-05-06 07:13:32,465 - scraper - INFO - 保存帖子数据成功: 114456568203695294
+2025-05-06 07:13:32,465 - __main__ - INFO - 没有新帖子 (ID: 114456568203695294)
+2025-05-06 07:13:32,465 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-05-06 07:26:30,471 - __main__ - INFO - 程序被用户中断

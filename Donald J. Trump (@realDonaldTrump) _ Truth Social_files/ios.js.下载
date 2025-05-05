@@ -1,0 +1,1 @@
+window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.didBeginLoadingSoapbox&&window.webkit.messageHandlers.didBeginLoadingSoapbox.postMessage("started");
