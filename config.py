@@ -23,15 +23,21 @@ PICS_DIR = BASE_DIR / "pics"
 MOVS_DIR = BASE_DIR / "movs"
 DATA_DIR = BASE_DIR / "data"
 HISTORY_FILE = DATA_DIR / "history.json"
+RESULT_DIR = DATA_DIR / "result" # 新增，用于存放AI分析结果
 
 # HTML选择器
 SELECTORS = {
-    "post": "div[data-index='0']",
+    "post": "div[data-testid='status']",  # 更新
     "time": "time",
-    "text": "div.relative p",
+    "text": "p[data-markup='true']",  # 更新
     "image_container": "div[data-testid='still-image-container']",
     "image": "img",
-    "video": "source[type='video/mp4'][data-quality='480p']"
+    "video_480p": "source[type='video/mp4'][data-quality='480p']", # 可以考虑更名
+    "video_generic": "video source[type='video/mp4']", # 新增或作为video的主要
+    # 可以考虑为帖子链接和文本内链接添加新的键
+    "post_link_primary": 'a[href*="/posts/"]',
+    "post_link_secondary": 'a[href*="/@realDonaldTrump/posts/"]',
+    "text_embedded_link": "a[href]",
 }
 
 # 日志配置
@@ -40,7 +46,7 @@ LOG_LEVEL = logging.INFO
 # 确保必要的目录存在
 def ensure_dirs():
     """创建必要的目录结构"""
-    for directory in [PICS_DIR, MOVS_DIR, DATA_DIR]:
+    for directory in [PICS_DIR, MOVS_DIR, DATA_DIR, RESULT_DIR]:
         directory.mkdir(exist_ok=True)
 
 # 配置日志格式
@@ -51,7 +57,7 @@ def setup_logging():
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
             logging.StreamHandler(),  # 输出到控制台
-            logging.FileHandler(BASE_DIR / "trump_social.log")  # 输出到文件
+            logging.FileHandler(BASE_DIR / "trump_social.log", encoding='utf-8')  # 输出到文件
         ]
     )
 

@@ -36,7 +36,7 @@ def fetch_page():
             
             # 等待内容加载 - 更新为实际页面中帖子的选择器
             try:
-                page.wait_for_selector("div[data-testid='status']", timeout=10000)
+                page.wait_for_selector(config.SELECTORS['post'], timeout=10000)
                 logger.info("帖子内容已加载")
             except Exception as e:
                 logger.error(f"等待帖子超时: {str(e)}")
@@ -44,8 +44,8 @@ def fetch_page():
             # 获取页面内容
             html = page.content()
             
-            # 可选：截图保存
-            page.screenshot(path="page_screenshot.png")
+            # # 可选：截图保存
+            # page.screenshot(path="page_screenshot.png")
             
             browser.close()
             
@@ -69,16 +69,15 @@ def extract_post_info(soup):
     """
     try:
         # 找到第一个帖子 - 根据实际页面结构更新
-        post = soup.select_one("div[data-testid='status']")
+        post = soup.select_one(config.SELECTORS['post'])
         if not post:
             logger.error("未找到帖子")
             return None
         
         # 提取内容ID
-        post_link = post.select_one('a[href*="/posts/"]')
+        post_link = post.select_one(config.SELECTORS['post_link_primary'])
         if not post_link:
-            # 检查另一种格式的链接
-            post_link = post.select_one('a[href*="/@realDonaldTrump/posts/"]')
+            post_link = post.select_one(config.SELECTORS['post_link_secondary'])
             
         if not post_link:
             logger.error("未找到帖子链接")
@@ -107,7 +106,7 @@ def extract_post_info(soup):
             formatted_time = time_str
         
         # 提取文本内容
-        text_element = post.select_one("p[data-markup='true']")
+        text_element = post.select_one(config.SELECTORS['text'])
         text_content = text_element.get_text(strip=True) if text_element else None
         if text_content == "":
             text_content = None
@@ -115,7 +114,7 @@ def extract_post_info(soup):
         # 提取URL链接
         url_link = None
         if text_element:
-            link_element = text_element.select_one("a[href]")
+            link_element = text_element.select_one(config.SELECTORS['text_embedded_link'])
             if link_element and 'href' in link_element.attrs:
                 url_link = link_element['href']
                 # 确保是完整URL
@@ -142,9 +141,9 @@ def extract_post_info(soup):
                 image_urls.append(image_url)
         
         # 提取视频URL
-        video_element = post.select_one("video source[type='video/mp4']")
+        video_element = post.select_one(config.SELECTORS['video_generic'])
         if not video_element:
-            video_element = post.select_one("source[type='video/mp4'][data-quality='480p']")
+            video_element = post.select_one(config.SELECTORS['video_480p'])
             
         video_url = video_element['src'] if video_element else None
         
