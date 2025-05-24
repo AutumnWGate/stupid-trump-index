@@ -157,12 +157,8 @@ if __name__ == '__main__':
     system_prompt_path = config.BASE_DIR / "docs" / "system_prompt.md"
     try:
         with open(system_prompt_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-            # 移除注释行并合并
-            prompt_lines = [line for line in lines if not line.strip().startswith("#")]
-            test_system_prompt = "".join(prompt_lines).strip()
-            if not test_system_prompt:
-                raise ValueError("system_prompt.md 文件内容为空或只有注释。")
+            test_system_prompt = f.read().strip()
+
     except FileNotFoundError:
         logger.error(f"未找到 system_prompt.md 文件于: {system_prompt_path}。使用默认提示。")
         test_system_prompt = "你是一位金融分析师，请分析以下内容并以JSON格式返回结果，确保分析结果是一个合法的JSON对象。" # 强化JSON要求

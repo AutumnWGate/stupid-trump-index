@@ -98,9 +98,7 @@ def run_scraper(once=False):
             system_prompt_text = ""
             try:
                 with open(system_prompt_path, 'r', encoding='utf-8') as f:
-                    lines = f.readlines()
-                    prompt_lines = [line for line in lines if not line.strip().startswith("#")]
-                    system_prompt_text = "".join(prompt_lines).strip()
+                    test_system_prompt = f.read().strip()
                 if not system_prompt_text:
                     raise ValueError("system_prompt.md 文件内容为空或只有注释。")
                 logger.info("成功加载 system_prompt.md")
