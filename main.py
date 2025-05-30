@@ -23,7 +23,9 @@ project_root = os.path.dirname(current_dir) # 假设main.py在项目根目录下
 # 如果 main.py 就在项目根目录，则 sys.path.append(current_dir) 即可，或者什么都不用加，如果models是平级的
 # 假设 main.py 和 models 文件夹都在 stupid_trump_index 这个根目录下
 sys.path.append(os.path.dirname(os.path.abspath(__file__))) # 将当前文件所在目录（即项目根目录）加入sys.path
-from models.qwen_analyzer import analyze_content_with_qwen # 现在应该能找到了
+from models.qwen_analyzer import analyze_content_with_qwen
+from models.grok_analyzer import analyze_content_with_grok
+from models.gemini_analyzer import analyze_content_with_gemini
 
 # 获取logger
 logger = logging.getLogger(__name__)
@@ -64,7 +66,7 @@ def run_scraper(once=False):
             logger.info("首次运行，尚无历史记录")
         
         # 执行爬取
-        scraped_data = scrape_latest_post() # 重命名变量以示区分
+        scraped_data = scrape_latest_post()
         
         if not scraped_data:
             logger.warning("未能获取任何帖子")
@@ -72,13 +74,13 @@ def run_scraper(once=False):
             
         current_post_id = scraped_data.get('contentID')
         
-        if current_post_id == previous_post_id and not once: # 如果是单次运行，即使ID相同也分析
+        if current_post_id == previous_post_id and not once:
             logger.info(f"没有新帖子 (ID: {current_post_id})")
             return True
         else:
             if current_post_id != previous_post_id:
                 logger.info(f"成功爬取新帖子 (ID: {current_post_id})")
-            else: # current_post_id == previous_post_id and once == True
+            else:
                 logger.info(f"单次运行模式：重新分析已爬取的最新帖子 (ID: {current_post_id})")
 
             logger.info(f"发布时间: {scraped_data.get('time')}")
@@ -93,12 +95,14 @@ def run_scraper(once=False):
                 logger.info(f"包含视频: 是")
 
             # --- 开始AI分析流程 ---
-            logger.info(f"开始对帖子 {current_post_id} 进行AI分析...")
+            logger.info(f"开始对帖子 {current_post_id} 进行多AI分析...")
+            
+            # 加载系统提示词
             system_prompt_path = config.BASE_DIR / "docs" / "system_prompt.md"
             system_prompt_text = ""
             try:
                 with open(system_prompt_path, 'r', encoding='utf-8') as f:
-                    test_system_prompt = f.read().strip()
+                    system_prompt_text = f.read().strip()
                 if not system_prompt_text:
                     raise ValueError("system_prompt.md 文件内容为空或只有注释。")
                 logger.info("成功加载 system_prompt.md")
@@ -109,31 +113,83 @@ def run_scraper(once=False):
                 logger.error(f"{e} 使用默认分析提示。")
                 system_prompt_text = "你是一位金融分析师，请分析以下内容并以JSON格式返回结果，确保分析结果是一个合法的JSON对象。"
 
-            # 调用 qwen_analyzer 中的函数
-            # scraped_data 已经是单个帖子的字典，符合 analyze_content_with_qwen 的输入
-            analysis_result = analyze_content_with_qwen(scraped_data, system_prompt_text)
-
-            if analysis_result:
-                logger.info(f"帖子 {current_post_id} AI分析完成。")
-                logger.info(f"AI分析结果预览: {str(analysis_result)[:100]}...") # 打印部分结果
-
-                # 保存AI分析结果
-                result_file_name = f"{current_post_id}_qwen.json"
-                result_file_path = config.RESULT_DIR / result_file_name
+            # 按顺序执行三个AI分析：qwen → grok → gemini
+            ai_results = {}
+            
+            # 1. QWEN分析
+            logger.info("=== 开始QWEN分析 ===")
+            qwen_result = analyze_content_with_qwen(scraped_data, system_prompt_text)
+            if qwen_result:
+                logger.info("QWEN分析完成")
+                ai_results['qwen'] = qwen_result
+                # 保存QWEN结果
+                qwen_file_name = f"{current_post_id}_qwen.json"
+                qwen_file_path = config.RESULT_DIR / qwen_file_name
                 try:
-                    with open(result_file_path, 'w', encoding='utf-8') as f:
-                        json.dump(analysis_result, f, ensure_ascii=False, indent=2)
-                    logger.info(f"AI分析结果已保存到: {result_file_path}")
+                    with open(qwen_file_path, 'w', encoding='utf-8') as f:
+                        json.dump(qwen_result, f, ensure_ascii=False, indent=2)
+                    logger.info(f"QWEN分析结果已保存到: {qwen_file_path}")
                 except Exception as e:
-                    logger.error(f"保存AI分析结果失败: {e}")
+                    logger.error(f"保存QWEN分析结果失败: {e}")
             else:
-                logger.error(f"帖子 {current_post_id} AI分析失败或未返回有效结果。")
+                logger.error("QWEN分析失败")
+                ai_results['qwen'] = {"error": "QWEN analysis failed"}
+            
+            # 2. GROK分析
+            logger.info("=== 开始GROK分析 ===")
+            grok_result = analyze_content_with_grok(scraped_data, system_prompt_text)
+            if grok_result:
+                logger.info("GROK分析完成")
+                ai_results['grok'] = grok_result
+                # 保存GROK结果
+                grok_file_name = f"{current_post_id}_grok.json"
+                grok_file_path = config.RESULT_DIR / grok_file_name
+                try:
+                    with open(grok_file_path, 'w', encoding='utf-8') as f:
+                        json.dump(grok_result, f, ensure_ascii=False, indent=2)
+                    logger.info(f"GROK分析结果已保存到: {grok_file_path}")
+                except Exception as e:
+                    logger.error(f"保存GROK分析结果失败: {e}")
+            else:
+                logger.error("GROK分析失败")
+                ai_results['grok'] = {"error": "GROK analysis failed"}
+            
+            # 3. GEMINI分析
+            logger.info("=== 开始GEMINI分析 ===")
+            gemini_result = analyze_content_with_gemini(scraped_data, system_prompt_text)
+            if gemini_result:
+                logger.info("GEMINI分析完成")
+                ai_results['gemini'] = gemini_result
+                # 保存GEMINI结果
+                gemini_file_name = f"{current_post_id}_gemini.json"
+                gemini_file_path = config.RESULT_DIR / gemini_file_name
+                try:
+                    with open(gemini_file_path, 'w', encoding='utf-8') as f:
+                        json.dump(gemini_result, f, ensure_ascii=False, indent=2)
+                    logger.info(f"GEMINI分析结果已保存到: {gemini_file_path}")
+                except Exception as e:
+                    logger.error(f"保存GEMINI分析结果失败: {e}")
+            else:
+                logger.error("GEMINI分析失败")
+                ai_results['gemini'] = {"error": "GEMINI analysis failed"}
+            
+            # 保存综合结果
+            summary_file_name = f"{current_post_id}_all_ai_results.json"
+            summary_file_path = config.RESULT_DIR / summary_file_name
+            try:
+                with open(summary_file_path, 'w', encoding='utf-8') as f:
+                    json.dump(ai_results, f, ensure_ascii=False, indent=2)
+                logger.info(f"所有AI分析结果已保存到: {summary_file_path}")
+            except Exception as e:
+                logger.error(f"保存综合分析结果失败: {e}")
+            
+            logger.info("=== 所有AI分析完成 ===")
             # --- AI分析流程结束 ---
             
             return True
     
     except Exception as e:
-        logger.error(f"爬虫及AI分析运行出错: {str(e)}", exc_info=True) # 添加 exc_info=True 获取更详细的堆栈跟踪
+        logger.error(f"爬虫及AI分析运行出错: {str(e)}", exc_info=True)
         return False
 
 def continuous_run(interval_minutes):

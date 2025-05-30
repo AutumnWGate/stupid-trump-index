@@ -8,7 +8,7 @@ import sys
 import dashscope
 
 # 导入 dashscope SDK 中的 MultiModalConversation
-from dashscope import MultiModalConversation
+from dashscope import MultiModalConversation, Generation
 
 # 将项目根目录添加到sys.path，以便导入config
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -43,50 +43,65 @@ def format_media_and_text_for_qwen(scraped_post_data):
     """
     content_list = []
     
-    # 处理视频
+    # 处理视频 - 更严格的检查
     local_video_path_str = scraped_post_data.get("videos")
-    if local_video_path_str:
+    if local_video_path_str and local_video_path_str != "null" and isinstance(local_video_path_str, str):
         video_path = Path(local_video_path_str)
-        if video_path.exists():
-            content_list.append({'video': f"file://{video_path.resolve()}", "fps": 2}) # 使用 resolve() 获取绝对路径
-            logger.info(f"视频文件已准备: file://{video_path.resolve()}")
+        if video_path.exists() and video_path.is_file():
+            try:
+                video_url = f"file://{video_path.resolve()}"
+                content_list.append({'video': video_url, "fps": 2})
+                logger.info(f"视频文件已准备: {video_url}")
+            except Exception as e:
+                logger.warning(f"处理视频文件时出错: {e}")
         else:
-            logger.warning(f"视频文件未找到，已跳过: {video_path}")
+            logger.warning(f"视频文件未找到或不是有效文件: {video_path}")
 
-    # 处理图片 (如果视频不存在，则处理图片)
-    # Qwen示例显示图片列表也用 'video' 键
-    if not local_video_path_str: # 仅在没有视频时才将图片作为主要视觉内容
+    # 处理图片 - 更严格的检查
+    if not local_video_path_str or local_video_path_str == "null":
         local_image_paths = scraped_post_data.get("images")
-        if local_image_paths and isinstance(local_image_paths, list):
+        if local_image_paths and local_image_paths != "null" and isinstance(local_image_paths, list):
             image_file_urls = []
             for img_path_str in local_image_paths:
-                img_path = Path(img_path_str)
-                if img_path.exists():
-                    image_file_urls.append(f"file://{img_path.resolve()}")
-                else:
-                    logger.warning(f"图片文件未找到，已跳过: {img_path}")
+                if img_path_str and isinstance(img_path_str, str):
+                    img_path = Path(img_path_str)
+                    if img_path.exists() and img_path.is_file():
+                        try:
+                            image_url = f"file://{img_path.resolve()}"
+                            image_file_urls.append(image_url)
+                        except Exception as e:
+                            logger.warning(f"处理图片文件时出错: {e}")
+                    else:
+                        logger.warning(f"图片文件未找到或不是有效文件: {img_path}")
             
             if image_file_urls:
-                content_list.append({'video': image_file_urls, "fps": 2}) # 多张图片作为视频帧
+                content_list.append({'video': image_file_urls, "fps": 2})
                 logger.info(f"图片文件已准备 (作为视频帧): {image_file_urls}")
 
     # 构建文本描述
     text_parts = []
-    if scraped_post_data.get("text"):
-        text_parts.append(scraped_post_data['text'])
-    if scraped_post_data.get("url"):
-        text_parts.append(f"相关链接: {scraped_post_data['url']}")
+    text_content = scraped_post_data.get("text")
+    if text_content and isinstance(text_content, str) and text_content.strip():
+        text_parts.append(text_content.strip())
+    
+    url_content = scraped_post_data.get("url")
+    if url_content and isinstance(url_content, str) and url_content.strip() and url_content != "null":
+        text_parts.append(f"相关链接: {url_content}")
     
     text_description = "\n".join(text_parts)
-    if not text_description.strip() and not content_list: # 如果完全没有内容
-         text_description = "没有可供分析的文本、图片或视频内容。"
+    
+    # 如果完全没有内容，提供默认文本
+    if not text_description.strip() and not content_list:
+        text_description = "没有可供分析的文本、图片或视频内容。"
 
-    if text_description.strip(): # 确保文本非空
+    # 添加文本内容（如果有的话）
+    if text_description.strip():
         content_list.append({'text': text_description.strip()})
 
+    # 确保至少有一个内容项
     if not content_list:
         logger.warning("没有有效的文本、图片或视频内容可以发送给模型。")
-        return [{'text': "没有可分析的内容。"}] # 避免发送空内容
+        return [{'text': "没有可分析的内容。"}]
 
     return content_list
 
@@ -104,51 +119,137 @@ def analyze_content_with_qwen(scraped_post_data, system_prompt_text):
             logger.error("格式化后的用户输入内容为空或无效，无法发送给通义千问。")
             return None
 
-        messages = [
-            {'role': 'system', 'content': [{'text': system_prompt_text}]},
-            {'role': 'user', 'content': user_formatted_content}
-        ]
+        # 检查是否包含多媒体内容
+        has_media = any(part.get('video') for part in user_formatted_content)
         
-        logger.debug(f"发送给通义千问 MultiModalConversation 的 messages: {json.dumps(messages, ensure_ascii=False, indent=2)}")
+        if has_media:
+            # 使用多模态API
+            logger.info("检测到多媒体内容，使用MultiModalConversation API")
+            messages = [
+                {'role': 'system', 'content': [{'text': system_prompt_text}]},
+                {'role': 'user', 'content': user_formatted_content}
+            ]
+            
+            response = MultiModalConversation.call(
+                api_key=DASHSCOPE_API_KEY,
+                model=QWEN_MODEL_NAME,
+                messages=messages
+            )
+        else:
+            # 使用普通文本API，启用联网搜索、思维链和JSON格式输出
+            logger.info("仅包含文本内容，使用普通文本对话API（启用联网搜索、思维链、JSON格式输出）")
+            
+            # 提取纯文本内容
+            text_content = ""
+            for part in user_formatted_content:
+                if part.get('text'):
+                    text_content += part['text'] + "\n"
+            
+            # 使用消息格式以支持所有高级功能
+            messages = [
+                {'role': 'system', 'content': system_prompt_text},
+                {'role': 'user', 'content': text_content.strip()}
+            ]
+            
+            response = Generation.call(
+                api_key=DASHSCOPE_API_KEY,
+                model=QWEN_MODEL_NAME,
+                messages=messages,
+                result_format='message',  # 必须使用message格式
+                enable_search=True,  # 启用联网搜索
+                search_options={
+                    "forced_search": True  # 强制搜索
+                },
+                enable_thinking=True,  # 启用思维链功能
+                thinking_budget=10000,  # 思考过程的最大长度
+                response_format={"type": "json_object"}  # 强制JSON格式输出
+            )
 
-        response = MultiModalConversation.call(
-            api_key=DASHSCOPE_API_KEY,
-            model=QWEN_MODEL_NAME,
-            messages=messages
-        )
-
-        if response.status_code == 200 and response.output and response.output.choices:
-            analysis_result_str = response.output.choices[0].message.content[0].get("text", "")
-            if not analysis_result_str: # 有时多模态返回内容可能在不同的结构
-                 # 尝试查找其他可能包含文本的字段，或记录整个content
-                alt_content = response.output.choices[0].message.content
-                logger.warning(f"主要文本字段为空，检查备选内容: {alt_content}")
-                # 尝试从第一个元素（如果是字典且有text）获取
-                if isinstance(alt_content, list) and len(alt_content) > 0 and isinstance(alt_content[0], dict):
-                    analysis_result_str = alt_content[0].get("text", "")
-
-            logger.info("通义千问分析完成。")
-            logger.debug(f"通义千问 MultiModalConversation 原始输出: {response}") # 记录整个响应对象
-
-            if not analysis_result_str.strip():
+        # 处理响应
+        if response.status_code == 200 and response.output:
+            if has_media:
+                # 多模态API响应格式
+                if response.output.choices:
+                    analysis_result_str = response.output.choices[0].message.content[0].get("text", "")
+                else:
+                    logger.error("多模态API响应格式异常")
+                    return None
+            else:
+                # 普通文本API响应格式（消息格式）
+                if hasattr(response.output, 'choices') and response.output.choices:
+                    message = response.output.choices[0].message
+                    
+                    # 安全地检查是否有思维过程
+                    try:
+                        thinking_content = None
+                        # 尝试多种方式获取thinking内容
+                        if hasattr(message, 'thinking'):
+                            thinking_content = getattr(message, 'thinking', None)
+                        elif isinstance(message, dict) and 'thinking' in message:
+                            thinking_content = message.get('thinking')
+                        elif hasattr(response.output, 'thinking'):
+                            thinking_content = getattr(response.output, 'thinking', None)
+                        
+                        if thinking_content:
+                            logger.info(f"AI思维过程: {str(thinking_content)[:200]}...")
+                    except Exception as e:
+                        logger.debug(f"无法获取思维过程: {e}")
+                    
+                    # 获取主要内容
+                    try:
+                        if hasattr(message, 'content'):
+                            analysis_result_str = message.content
+                        elif isinstance(message, dict) and 'content' in message:
+                            analysis_result_str = message['content']
+                        else:
+                            analysis_result_str = str(message)
+                    except Exception as e:
+                        logger.error(f"获取消息内容失败: {e}")
+                        analysis_result_str = response.output.text
+                else:
+                    # 兼容旧格式
+                    analysis_result_str = response.output.text
+            
+            if not analysis_result_str:
                 logger.error(f"通义千问返回的分析结果文本为空。响应详情: {response}")
                 return None
 
+            logger.info("通义千问分析完成。")
+            logger.debug(f"通义千问原始输出: {response}")
+
             try:
-                analysis_result_json = json.loads(analysis_result_str)
+                # 由于使用了response_format={"type": "json_object"}，返回的应该直接是JSON
+                cleaned_response = analysis_result_str.strip()
+                
+                # 如果仍然包含markdown格式，进行清理
+                if cleaned_response.startswith('```json'):
+                    cleaned_response = cleaned_response[7:]
+                    if cleaned_response.endswith('```'):
+                        cleaned_response = cleaned_response[:-3]
+                    cleaned_response = cleaned_response.strip()
+                elif cleaned_response.startswith('```'):
+                    lines = cleaned_response.split('\n')
+                    if len(lines) > 1:
+                        cleaned_response = '\n'.join(lines[1:])
+                        if cleaned_response.endswith('```'):
+                            cleaned_response = cleaned_response[:-3]
+                    cleaned_response = cleaned_response.strip()
+                
+                # 尝试解析JSON
+                analysis_result_json = json.loads(cleaned_response)
+                logger.info("JSON解析成功")
                 return analysis_result_json
+                
             except json.JSONDecodeError as e:
-                logger.error(f"无法将通义千问的输出解析为JSON: '{analysis_result_str}'. 错误: {e}")
+                logger.error(f"无法将通义千问的输出解析为JSON: '{analysis_result_str[:500]}...'. 错误: {e}")
                 logger.info("将返回原始文本结果。")
-                # 对于无法解析为JSON的，可以考虑返回原始文本或特定错误结构
-                # 根据项目需求，这里返回原始文本字符串
                 return {"error": "Failed to parse Qwen response as JSON", "raw_response": analysis_result_str}
         else:
             logger.error(f"通义千问 API 调用失败。状态码: {response.status_code}, 响应: {response}")
             return None
 
     except Exception as e:
-        logger.error(f"与通义千问 MultiModalConversation 交互时发生未知错误: {str(e)}", exc_info=True)
+        logger.error(f"与通义千问交互时发生未知错误: {str(e)}", exc_info=True)
     return None
 
 if __name__ == '__main__':
