@@ -5,7 +5,8 @@ import logging
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
+import os
 
 import config
 from downloader import download_media
@@ -13,49 +14,113 @@ from downloader import download_media
 # 获取logger
 logger = logging.getLogger(__name__)
 
-def fetch_page():
+def fetch_page_and_screenshot():
     """
-    使用Playwright获取Truth Social页面内容
+    使用Playwright获取Truth Social页面内容并截图
     
     Returns:
-        BeautifulSoup: 解析后的页面，失败则返回None
+        tuple: (BeautifulSoup对象, 截图路径)，失败则返回(None, None)
     """
     try:
         logger.info(f"开始获取页面: {config.TARGET_URL}")
         
         with sync_playwright() as p:
-            # 启动可见的浏览器
+            # 启动浏览器（可配置为无头模式）
             browser = p.chromium.launch(
-                headless=False,  # 保持浏览器可见
+                headless=False,  # 改为无头模式以提高性能
                 proxy={"server": "socks5://127.0.0.1:10808"},
-                slow_mo=300  # 放慢操作，更容易观察
+                args=['--disable-blink-features=AutomationControlled']  # 避免被检测
             )
             
-            page = browser.new_page(ignore_https_errors=True)
+            # 创建页面上下文，设置视口大小
+            context = browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                ignore_https_errors=True
+            )
+            page = context.new_page()
+            
+            # 访问页面
             page.goto(config.TARGET_URL, wait_until="networkidle")
             
-            # 等待内容加载 - 更新为实际页面中帖子的选择器
+            # 等待帖子加载
             try:
-                page.wait_for_selector(config.SELECTORS['post'], timeout=10000)
+                page.wait_for_selector(config.SELECTORS['post'], timeout=15000)
                 logger.info("帖子内容已加载")
+            except PlaywrightTimeoutError:
+                logger.error("等待帖子超时")
+                browser.close()
+                return None, None
+            
+            # 等待图片加载完成（如果有）
+            page.wait_for_timeout(2000)  # 额外等待2秒确保图片加载
+            
+            # 获取第一个帖子元素
+            post_element = page.locator(config.SELECTORS['post']).first
+            
+            # 滚动到帖子位置，确保完全可见
+            post_element.scroll_into_view_if_needed()
+            page.wait_for_timeout(500)  # 等待滚动完成
+            
+            # 隐藏可能的干扰元素（如固定的导航栏、弹窗等）
+            page.evaluate("""
+                // 隐藏可能的固定元素
+                const fixedElements = document.querySelectorAll('[style*="position: fixed"], [style*="position: sticky"]');
+                fixedElements.forEach(el => el.style.display = 'none');
+                
+                // 隐藏可能的模态框
+                const modals = document.querySelectorAll('[role="dialog"], .modal, .popup');
+                modals.forEach(el => el.style.display = 'none');
+                
+                // 隐藏cookie提示等
+                const banners = document.querySelectorAll('[class*="banner"], [class*="consent"], [class*="cookie"]');
+                banners.forEach(el => el.style.display = 'none');
+            """)
+            
+            # 生成截图文件名（使用时间戳，稍后会更新为content_id）
+            temp_screenshot_path = config.SCREENSHOTS_DIR / f"temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+            
+            # 对帖子元素进行截图
+            try:
+                # 获取帖子的边界框
+                bounding_box = post_element.bounding_box()
+                if bounding_box:
+                    # 添加一些内边距，确保完整截图
+                    padding = 20
+                    clip = {
+                        'x': max(0, bounding_box['x'] - padding),
+                        'y': max(0, bounding_box['y'] - padding),
+                        'width': bounding_box['width'] + 2 * padding,
+                        'height': bounding_box['height'] + 2 * padding
+                    }
+                    
+                    # 截图特定区域
+                    page.screenshot(
+                        path=str(temp_screenshot_path),
+                        clip=clip,
+                        full_page=False
+                    )
+                    logger.info(f"帖子截图已保存到临时文件: {temp_screenshot_path}")
+                else:
+                    # 如果无法获取边界框，使用元素截图方法
+                    post_element.screenshot(path=str(temp_screenshot_path))
+                    logger.info(f"帖子截图已保存（使用元素截图）: {temp_screenshot_path}")
+                    
             except Exception as e:
-                logger.error(f"等待帖子超时: {str(e)}")
+                logger.error(f"截图失败: {str(e)}")
+                temp_screenshot_path = None
             
-            # 获取页面内容
+            # 获取页面HTML
             html = page.content()
-            
-            # # 可选：截图保存
-            # page.screenshot(path="page_screenshot.png")
             
             browser.close()
             
             soup = BeautifulSoup(html, 'html.parser')
             logger.info("页面获取成功")
-            return soup
+            return soup, str(temp_screenshot_path) if temp_screenshot_path else None
     
     except Exception as e:
         logger.error(f"获取页面失败: {str(e)}")
-        return None
+        return None, None
 
 def extract_post_info(soup):
     """
@@ -160,12 +225,13 @@ def extract_post_info(soup):
         logger.error(f"提取帖子信息失败: {str(e)}")
         return None
 
-def process_post(post_info):
+def process_post(post_info, screenshot_path=None):
     """
     处理帖子信息，下载媒体文件并保存结果
     
     Args:
         post_info (dict): 帖子信息
+        screenshot_path (str): 临时截图路径
         
     Returns:
         dict: 处理后的帖子数据
@@ -175,6 +241,13 @@ def process_post(post_info):
         
     try:
         content_id = post_info["contentID"]
+        
+        # 处理截图：重命名为正确的文件名
+        final_screenshot_path = None
+        if screenshot_path and os.path.exists(screenshot_path):
+            final_screenshot_path = config.SCREENSHOTS_DIR / f"{content_id}.png"
+            os.rename(screenshot_path, final_screenshot_path)
+            logger.info(f"截图已重命名为: {final_screenshot_path}")
         
         # 下载媒体文件
         image_paths, video_path = download_media(
@@ -190,7 +263,8 @@ def process_post(post_info):
             "text": post_info.get("text"),
             "url": post_info.get("url"),
             "images": image_paths if image_paths else None,
-            "videos": video_path if video_path else None
+            "videos": video_path if video_path else None,
+            "screenshot": str(final_screenshot_path) if final_screenshot_path else None  # 新增截图路径
         }
         
         # 保存到JSON文件
@@ -200,6 +274,9 @@ def process_post(post_info):
         
     except Exception as e:
         logger.error(f"处理帖子失败: {str(e)}")
+        # 清理临时截图
+        if screenshot_path and os.path.exists(screenshot_path):
+            os.remove(screenshot_path)
         return None
 
 def save_post_data(post_data):
@@ -247,7 +324,7 @@ def save_post_data(post_data):
 
 def scrape_latest_post():
     """
-    抓取最新的帖子信息并处理
+    抓取最新的帖子信息并处理（包括截图）
     
     Returns:
         dict: 处理后的帖子数据，失败则返回None
@@ -255,18 +332,21 @@ def scrape_latest_post():
     # 确保配置初始化
     config.init()
     
-    # 获取页面
-    soup = fetch_page()
+    # 获取页面和截图
+    soup, temp_screenshot_path = fetch_page_and_screenshot()
     if not soup:
         return None
         
     # 提取帖子信息
     post_info = extract_post_info(soup)
     if not post_info:
+        # 如果提取失败，删除临时截图
+        if temp_screenshot_path and os.path.exists(temp_screenshot_path):
+            os.remove(temp_screenshot_path)
         return None
         
-    # 处理帖子
-    result = process_post(post_info)
+    # 处理帖子（包括重命名截图）
+    result = process_post(post_info, temp_screenshot_path)
     return result
 
 # 测试
@@ -275,5 +355,7 @@ if __name__ == "__main__":
     result = scrape_latest_post()
     if result:
         print(json.dumps(result, ensure_ascii=False, indent=2))
+        if result.get('screenshot'):
+            print(f"截图已保存: {result['screenshot']}")
     else:
         print("抓取失败")

@@ -24,6 +24,7 @@ MOVS_DIR = BASE_DIR / "movs"
 DATA_DIR = BASE_DIR / "data"
 HISTORY_FILE = DATA_DIR / "history.json"
 RESULT_DIR = DATA_DIR / "result" # 新增，用于存放AI分析结果
+SCREENSHOTS_DIR = BASE_DIR / "screenshots"  # 新增：截图目录
 
 # HTML选择器
 SELECTORS = {
@@ -46,7 +47,7 @@ LOG_LEVEL = logging.INFO
 # 确保必要的目录存在
 def ensure_dirs():
     """创建必要的目录结构"""
-    for directory in [PICS_DIR, MOVS_DIR, DATA_DIR, RESULT_DIR]:
+    for directory in [PICS_DIR, MOVS_DIR, DATA_DIR, RESULT_DIR, SCREENSHOTS_DIR]:
         directory.mkdir(exist_ok=True)
 
 # 配置日志格式

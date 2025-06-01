@@ -8,21 +8,12 @@ from datetime import datetime
 
 import config
 from scraper import scrape_latest_post
-# 导入 qwen_analyzer 中的分析函数和可能的辅助函数
-# 假设 qwen_analyzer.py 中有一个主分析函数 analyze_post_with_qwen_and_save
-# 我们先定义一个占位，具体导入需要看 qwen_analyzer.py 的最终结构
-# from models.qwen_analyzer import analyze_content_with_qwen # 假设这是核心分析函数
-# 为了能运行，我们先模拟一个导入
-# from models.qwen_analyzer import analyze_content_with_qwen # 实际应解除此行注释，并确保qwen_analyzer.py可被导入
 
-# --- 临时的 sys.path 修改，确保可以找到 models 包 ---
-# 在实际部署或更好的项目结构中，这可能通过其他方式处理（如PYTHONPATH或作为可安装包）
 import sys
 current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.dirname(current_dir) # 假设main.py在项目根目录下的某个地方，或者直接在根
-# 如果 main.py 就在项目根目录，则 sys.path.append(current_dir) 即可，或者什么都不用加，如果models是平级的
-# 假设 main.py 和 models 文件夹都在 stupid_trump_index 这个根目录下
-sys.path.append(os.path.dirname(os.path.abspath(__file__))) # 将当前文件所在目录（即项目根目录）加入sys.path
+project_root = os.path.dirname(current_dir) 
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__))) 
 from models.qwen_analyzer import analyze_content_with_qwen
 from models.grok_analyzer import analyze_content_with_grok
 from models.gemini_analyzer import analyze_content_with_gemini
@@ -93,6 +84,10 @@ def run_scraper(once=False):
                 logger.info(f"图片数量: {len(scraped_data.get('images'))}")
             if scraped_data.get('videos'):
                 logger.info(f"包含视频: 是")
+            if scraped_data.get('screenshot'):
+                logger.info(f"截图已保存: {scraped_data['screenshot']}")
+            else:
+                logger.info("没有截图")
 
             # --- 开始AI分析流程 ---
             logger.info(f"开始对帖子 {current_post_id} 进行多AI分析...")

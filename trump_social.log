@@ -1,0 +1,121 @@
+2025-06-01 13:38:08,865 - config - INFO - 配置初始化完成
+2025-06-01 13:38:08,865 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-06-01 13:38:08,865 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-06-01 13:38:08,866 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-06-01 13:38:08,866 - __main__ - INFO - 持续运行模式（爬取并分析），间隔时间: 30分钟
+2025-06-01 13:38:08,866 - __main__ - INFO - --- 新一轮执行开始: 2025-06-01 13:38:08 ---
+2025-06-01 13:38:08,866 - __main__ - INFO - 开始运行特朗普社交媒体爬虫及AI分析流程
+2025-06-01 13:38:08,866 - __main__ - INFO - 首次运行，尚无历史记录
+2025-06-01 13:38:08,867 - config - INFO - 配置初始化完成
+2025-06-01 13:38:08,867 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-06-01 13:38:08,867 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-06-01 13:38:08,867 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-06-01 13:38:08,867 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-06-01 13:38:29,168 - scraper - ERROR - 等待帖子超时
+2025-06-01 13:38:29,225 - __main__ - WARNING - 未能获取任何帖子
+2025-06-01 13:38:29,225 - __main__ - INFO - --- 本轮执行结束 (失败) ---
+2025-06-01 13:38:29,225 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-06-01 13:38:52,987 - __main__ - INFO - 程序被用户中断
+2025-06-01 13:44:01,982 - config - INFO - 配置初始化完成
+2025-06-01 13:44:01,982 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-06-01 13:44:01,982 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-06-01 13:44:01,982 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-06-01 13:44:01,982 - __main__ - INFO - 持续运行模式（爬取并分析），间隔时间: 30分钟
+2025-06-01 13:44:01,982 - __main__ - INFO - --- 新一轮执行开始: 2025-06-01 13:44:01 ---
+2025-06-01 13:44:01,982 - __main__ - INFO - 开始运行特朗普社交媒体爬虫及AI分析流程
+2025-06-01 13:44:01,983 - __main__ - INFO - 首次运行，尚无历史记录
+2025-06-01 13:44:01,983 - config - INFO - 配置初始化完成
+2025-06-01 13:44:01,983 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-06-01 13:44:01,983 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-06-01 13:44:01,983 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-06-01 13:44:01,983 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-06-01 13:44:10,693 - scraper - INFO - 帖子内容已加载
+2025-06-01 13:44:13,387 - scraper - INFO - 帖子截图已保存到临时文件: e:\core_dev_2025\stupid_trump_index\screenshots\temp_20250601_134413.png
+2025-06-01 13:44:13,581 - scraper - INFO - 页面获取成功
+2025-06-01 13:44:13,594 - scraper - INFO - 截图已重命名为: e:\core_dev_2025\stupid_trump_index\screenshots\114606254307800195.png
+2025-06-01 13:44:13,595 - scraper - INFO - 保存帖子数据成功: 114606254307800195
+2025-06-01 13:44:13,595 - __main__ - INFO - 成功爬取新帖子 (ID: 114606254307800195)
+2025-06-01 13:44:13,595 - __main__ - INFO - 发布时间: 2025-06-01 12:37:00
+2025-06-01 13:44:13,595 - __main__ - INFO - 文本内容: Great playwright and filmmaker, DAVID MAMET, just ...
+2025-06-01 13:44:13,596 - __main__ - INFO - 截图已保存: e:\core_dev_2025\stupid_trump_index\screenshots\114606254307800195.png
+2025-06-01 13:44:13,596 - __main__ - INFO - 开始对帖子 114606254307800195 进行多AI分析...
+2025-06-01 13:44:13,596 - __main__ - INFO - 成功加载 system_prompt.md
+2025-06-01 13:44:13,597 - __main__ - INFO - === 开始QWEN分析 ===
+2025-06-01 13:44:13,597 - models.qwen_analyzer - INFO - 向通义千问发送内容进行分析 (模型: qwen-max)...
+2025-06-01 13:44:13,598 - models.qwen_analyzer - INFO - 仅包含文本内容，使用普通文本对话API（启用联网搜索、思维链、JSON格式输出）
+2025-06-01 13:44:31,485 - models.qwen_analyzer - INFO - 通义千问分析完成。
+2025-06-01 13:44:31,486 - models.qwen_analyzer - INFO - JSON解析成功
+2025-06-01 13:44:31,486 - __main__ - INFO - QWEN分析完成
+2025-06-01 13:44:31,489 - __main__ - INFO - QWEN分析结果已保存到: e:\core_dev_2025\stupid_trump_index\data\result\114606254307800195_qwen.json
+2025-06-01 13:44:31,490 - __main__ - INFO - === 开始GROK分析 ===
+2025-06-01 13:44:31,490 - models.grok_analyzer - INFO - 向GROK发送内容进行分析 (模型: grok-3)...
+2025-06-01 13:44:31,491 - models.grok_analyzer - INFO - 启用功能: Live Search + Structured Outputs + Reasoning
+2025-06-01 13:44:34,043 - httpx - INFO - HTTP Request: POST https://api.x.ai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2025-06-01 13:44:34,045 - models.grok_analyzer - ERROR - 与GROK交互时发生未知错误: Error code: 403 - {'code': 'The caller does not have permission to execute the specified operation', 'error': 'API key is currently blocked: Blocked due to API key leak'}
+Traceback (most recent call last):
+  File "e:\core_dev_2025\stupid_trump_index\models\grok_analyzer.py", line 170, in analyze_content_with_grok
+    completion = client.chat.completions.create(
+        model=GROK_MODEL_NAME,
+    ...<19 lines>...
+        }
+    )
+  File "E:\core_dev_2025\stupid_trump_index\venv\Lib\site-packages\openai\_utils\_utils.py", line 287, in wrapper
+    return func(*args, **kwargs)
+  File "E:\core_dev_2025\stupid_trump_index\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 925, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<43 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "E:\core_dev_2025\stupid_trump_index\venv\Lib\site-packages\openai\_base_client.py", line 1239, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\core_dev_2025\stupid_trump_index\venv\Lib\site-packages\openai\_base_client.py", line 1034, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.PermissionDeniedError: Error code: 403 - {'code': 'The caller does not have permission to execute the specified operation', 'error': 'API key is currently blocked: Blocked due to API key leak'}
+2025-06-01 13:44:34,051 - __main__ - INFO - GROK分析完成
+2025-06-01 13:44:34,052 - __main__ - INFO - GROK分析结果已保存到: e:\core_dev_2025\stupid_trump_index\data\result\114606254307800195_grok.json
+2025-06-01 13:44:34,052 - __main__ - INFO - === 开始GEMINI分析 ===
+2025-06-01 13:44:34,053 - models.gemini_analyzer - INFO - 向GEMINI发送内容进行分析 (模型: gemini-2.5-pro-preview-05-06)...
+2025-06-01 13:45:07,890 - models.gemini_analyzer - INFO - GEMINI分析完成。
+2025-06-01 13:45:07,892 - models.gemini_analyzer - INFO - GEMINI JSON解析成功
+2025-06-01 13:45:07,893 - __main__ - INFO - GEMINI分析完成
+2025-06-01 13:45:07,896 - __main__ - INFO - GEMINI分析结果已保存到: e:\core_dev_2025\stupid_trump_index\data\result\114606254307800195_gemini.json
+2025-06-01 13:45:07,900 - __main__ - INFO - 所有AI分析结果已保存到: e:\core_dev_2025\stupid_trump_index\data\result\114606254307800195_all_ai_results.json
+2025-06-01 13:45:07,901 - __main__ - INFO - === 所有AI分析完成 ===
+2025-06-01 13:45:07,901 - __main__ - INFO - --- 本轮执行结束 (成功) ---
+2025-06-01 13:45:07,902 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-06-01 14:15:07,912 - __main__ - INFO - --- 新一轮执行开始: 2025-06-01 14:15:07 ---
+2025-06-01 14:15:07,914 - __main__ - INFO - 开始运行特朗普社交媒体爬虫及AI分析流程
+2025-06-01 14:15:07,916 - __main__ - INFO - 上次爬取的帖子ID: 114606254307800195
+2025-06-01 14:15:07,918 - config - INFO - 配置初始化完成
+2025-06-01 14:15:07,919 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-06-01 14:15:07,920 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-06-01 14:15:07,921 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-06-01 14:15:07,921 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-06-01 14:15:18,559 - scraper - INFO - 帖子内容已加载
+2025-06-01 14:15:21,245 - scraper - INFO - 帖子截图已保存到临时文件: e:\core_dev_2025\stupid_trump_index\screenshots\temp_20250601_141521.png
+2025-06-01 14:15:21,420 - scraper - INFO - 页面获取成功
+2025-06-01 14:15:21,431 - scraper - ERROR - 处理帖子失败: [WinError 183] Cannot create a file when that file already exists: 'e:\\core_dev_2025\\stupid_trump_index\\screenshots\\temp_20250601_141521.png' -> 'e:\\core_dev_2025\\stupid_trump_index\\screenshots\\114606254307800195.png'
+2025-06-01 14:15:21,432 - __main__ - WARNING - 未能获取任何帖子
+2025-06-01 14:15:21,432 - __main__ - INFO - --- 本轮执行结束 (失败) ---
+2025-06-01 14:15:21,432 - __main__ - INFO - 等待 30 分钟后再次运行...
+2025-06-01 14:45:21,442 - __main__ - INFO - --- 新一轮执行开始: 2025-06-01 14:45:21 ---
+2025-06-01 14:45:21,443 - __main__ - INFO - 开始运行特朗普社交媒体爬虫及AI分析流程
+2025-06-01 14:45:21,445 - __main__ - INFO - 上次爬取的帖子ID: 114606254307800195
+2025-06-01 14:45:21,448 - config - INFO - 配置初始化完成
+2025-06-01 14:45:21,449 - config - INFO - 图片保存路径: e:\core_dev_2025\stupid_trump_index\pics
+2025-06-01 14:45:21,449 - config - INFO - 视频保存路径: e:\core_dev_2025\stupid_trump_index\movs
+2025-06-01 14:45:21,450 - config - INFO - 数据保存路径: e:\core_dev_2025\stupid_trump_index\data
+2025-06-01 14:45:21,450 - scraper - INFO - 开始获取页面: https://truthsocial.com/@realDonaldTrump
+2025-06-01 14:45:28,832 - scraper - INFO - 帖子内容已加载
+2025-06-01 14:45:31,503 - scraper - INFO - 帖子截图已保存到临时文件: e:\core_dev_2025\stupid_trump_index\screenshots\temp_20250601_144531.png
+2025-06-01 14:45:31,682 - scraper - INFO - 页面获取成功
+2025-06-01 14:45:31,693 - scraper - ERROR - 处理帖子失败: [WinError 183] Cannot create a file when that file already exists: 'e:\\core_dev_2025\\stupid_trump_index\\screenshots\\temp_20250601_144531.png' -> 'e:\\core_dev_2025\\stupid_trump_index\\screenshots\\114606254307800195.png'
+2025-06-01 14:45:31,693 - __main__ - WARNING - 未能获取任何帖子
+2025-06-01 14:45:31,693 - __main__ - INFO - --- 本轮执行结束 (失败) ---
+2025-06-01 14:45:31,693 - __main__ - INFO - 等待 30 分钟后再次运行...
