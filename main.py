@@ -8,6 +8,8 @@ from datetime import datetime
 
 import config
 from scraper import scrape_latest_post
+from article_generator import ArticleGenerator
+from wechat_publisher import WechatPublisher
 
 import sys
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -45,10 +47,22 @@ def get_last_post_id():
         logger.error(f"获取上次帖子ID失败: {str(e)}")
         return None
 
-def run_scraper(once=False):
-    """运行爬虫并进行AI分析"""
+def run_scraper(once=False, skip_publish=False):
+    """
+    运行完整的业务流程：采集 → 分析 → 生成 → 发布
+    
+    Args:
+        once (bool): 是否单次运行模式
+        skip_publish (bool): 是否跳过发布步骤
+    """
     try:
-        logger.info("开始运行特朗普社交媒体爬虫及AI分析流程")
+        logger.info("="*60)
+        logger.info("开始运行特朗普社交媒体爬虫及AI分析发布流程")
+        logger.info(f"运行时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        logger.info("="*60)
+        
+        # ========== 1. 采集阶段 ==========
+        logger.info("\n【第1步：数据采集】")
         
         previous_post_id = get_last_post_id()
         if previous_post_id:
@@ -76,20 +90,31 @@ def run_scraper(once=False):
 
             logger.info(f"发布时间: {scraped_data.get('time')}")
             
+            # 显示爬取结果摘要
             text = scraped_data.get('text')
             if text:
                 preview = text[:50] + "..." if len(text) > 50 else text
                 logger.info(f"文本内容: {preview}")
-            if scraped_data.get('images'):
-                logger.info(f"图片数量: {len(scraped_data.get('images'))}")
-            if scraped_data.get('videos'):
-                logger.info(f"包含视频: 是")
-            if scraped_data.get('screenshot'):
-                logger.info(f"截图已保存: {scraped_data['screenshot']}")
-            else:
-                logger.info("没有截图")
 
-            # --- 开始AI分析流程 ---
+            # 安全处理图片数量
+            images = scraped_data.get('images')
+            if images is None:
+                logger.info(f"图片数量: 0")
+            elif isinstance(images, list):
+                logger.info(f"图片数量: {len(images)}")
+            else:
+                logger.info(f"图片数量: 0")
+
+            # 安全处理视频
+            videos = scraped_data.get('videos')
+            logger.info(f"视频: {'有' if videos else '无'}")
+
+            # 安全处理截图
+            screenshot = scraped_data.get('screenshot')
+            logger.info(f"截图: {'已保存' if screenshot else '未生成'}")
+
+            # ========== 2. 分析阶段 ==========
+            logger.info(f"\n【第2步：AI分析】")
             logger.info(f"开始对帖子 {current_post_id} 进行多AI分析...")
             
             # 加载系统提示词
@@ -111,8 +136,8 @@ def run_scraper(once=False):
             # 按顺序执行三个AI分析：qwen → grok → gemini
             ai_results = {}
             
-            # 1. QWEN分析
-            logger.info("=== 开始QWEN分析 ===")
+            # 2.1 QWEN分析
+            logger.info("\n--- 开始QWEN分析 ---")
             qwen_result = analyze_content_with_qwen(scraped_data, system_prompt_text)
             if qwen_result:
                 logger.info("QWEN分析完成")
@@ -130,8 +155,8 @@ def run_scraper(once=False):
                 logger.error("QWEN分析失败")
                 ai_results['qwen'] = {"error": "QWEN analysis failed"}
             
-            # 2. GROK分析
-            logger.info("=== 开始GROK分析 ===")
+            # 2.2 GROK分析
+            logger.info("\n--- 开始GROK分析 ---")
             grok_result = analyze_content_with_grok(scraped_data, system_prompt_text)
             if grok_result:
                 logger.info("GROK分析完成")
@@ -149,8 +174,8 @@ def run_scraper(once=False):
                 logger.error("GROK分析失败")
                 ai_results['grok'] = {"error": "GROK analysis failed"}
             
-            # 3. GEMINI分析
-            logger.info("=== 开始GEMINI分析 ===")
+            # 2.3 GEMINI分析
+            logger.info("\n--- 开始GEMINI分析 ---")
             gemini_result = analyze_content_with_gemini(scraped_data, system_prompt_text)
             if gemini_result:
                 logger.info("GEMINI分析完成")
@@ -168,59 +193,159 @@ def run_scraper(once=False):
                 logger.error("GEMINI分析失败")
                 ai_results['gemini'] = {"error": "GEMINI analysis failed"}
             
-            # 保存综合结果
+            # 保存综合结果（包含截图信息）
+            summary_data = {
+                "post_data": {
+                    "contentID": current_post_id,
+                    "time": scraped_data.get('time'),
+                    "text": scraped_data.get('text'),
+                    "url": scraped_data.get('url'),
+                    "images": scraped_data.get('images'),
+                    "videos": scraped_data.get('videos'),
+                    "screenshot": scraped_data.get('screenshot')  # 截图路径
+                },
+                "ai_analysis": ai_results,
+                "analysis_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
             summary_file_name = f"{current_post_id}_all_ai_results.json"
             summary_file_path = config.RESULT_DIR / summary_file_name
             try:
                 with open(summary_file_path, 'w', encoding='utf-8') as f:
-                    json.dump(ai_results, f, ensure_ascii=False, indent=2)
-                logger.info(f"所有AI分析结果已保存到: {summary_file_path}")
+                    json.dump(summary_data, f, ensure_ascii=False, indent=2)
+                logger.info(f"所有AI分析结果（含帖子数据）已保存到: {summary_file_path}")
             except Exception as e:
                 logger.error(f"保存综合分析结果失败: {e}")
             
-            logger.info("=== 所有AI分析完成 ===")
-            # --- AI分析流程结束 ---
+            logger.info("\nAI分析阶段完成")
+            
+            # ========== 3. 生成阶段 ==========
+            logger.info(f"\n【第3步：文章生成】")
+            
+            try:
+                generator = ArticleGenerator()
+                html_file, screenshot_path = generator.generate_article(current_post_id)
+                logger.info(f"文章HTML已生成: {html_file}")
+                logger.info(f"使用截图: {screenshot_path}")
+            except Exception as e:
+                logger.error(f"文章生成失败: {e}")
+                return False
+            
+            # ========== 4. 发布阶段 ==========
+            if not skip_publish:
+                logger.info(f"\n【第4步：微信发布】")
+                
+                try:
+                    # 加载环境变量
+                    from dotenv import load_dotenv
+                    env_path = config.BASE_DIR / ".env"
+                    if env_path.exists():
+                        load_dotenv(dotenv_path=env_path)
+                        logger.info("已加载.env配置文件")
+                    
+                    publisher = WechatPublisher()
+                    publish_result = publisher.publish_article(current_post_id)
+                    
+                    if publish_result:
+                        logger.info("微信公众号发布成功！")
+                    else:
+                        logger.error("微信公众号发布失败")
+                        
+                except Exception as e:
+                    logger.error(f"发布过程出错: {e}")
+                    return False
+            else:
+                logger.info("\n跳过发布步骤（--skip-publish参数）")
+            
+            # ========== 执行结果摘要 ==========
+            logger.info("\n" + "="*60)
+            logger.info("执行结果摘要")
+            logger.info("="*60)
+            logger.info(f"帖子ID: {current_post_id}")
+            logger.info(f"发布时间: {scraped_data.get('time')}")
+            logger.info(f"文本内容: {'有' if scraped_data.get('text') else '无'}")
+            logger.info(f"图片数量: {len(scraped_data.get('images', []))}")
+            logger.info(f"视频: {'有' if scraped_data.get('videos') else '无'}")
+            logger.info(f"截图: {'已保存' if scraped_data.get('screenshot') else '未生成'}")
+            logger.info(f"AI分析: QWEN-{'✓' if ai_results.get('qwen') and 'error' not in ai_results['qwen'] else '✗'}, "
+                       f"GROK-{'✓' if ai_results.get('grok') and 'error' not in ai_results['grok'] else '✗'}, "
+                       f"GEMINI-{'✓' if ai_results.get('gemini') and 'error' not in ai_results['gemini'] else '✗'}")
+            logger.info(f"文章生成: {'✓' if html_file else '✗'}")
+            if not skip_publish:
+                logger.info(f"微信发布: {'✓' if publish_result else '✗'}")
+            logger.info("="*60 + "\n")
             
             return True
     
     except Exception as e:
-        logger.error(f"爬虫及AI分析运行出错: {str(e)}", exc_info=True)
+        logger.error(f"流程运行出错: {str(e)}", exc_info=True)
         return False
 
-def continuous_run(interval_minutes):
+def continuous_run(interval_minutes, skip_publish=False):
     """持续运行爬虫，按指定间隔"""
     try:
         while True:
             run_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            logger.info(f"--- 新一轮执行开始: {run_time} ---")
+            logger.info(f"\n{'#'*60}")
+            logger.info(f"# 新一轮执行开始: {run_time}")
+            logger.info(f"{'#'*60}\n")
             
-            success = run_scraper() # run_scraper 现在包含AI分析
+            success = run_scraper(skip_publish=skip_publish)
             
-            logger.info(f"--- 本轮执行结束 ({'成功' if success else '失败'}) ---")
-            logger.info(f"等待 {interval_minutes} 分钟后再次运行...")
+            logger.info(f"\n{'#'*60}")
+            logger.info(f"# 本轮执行结束 ({'成功' if success else '失败'})")
+            logger.info(f"# 等待 {interval_minutes} 分钟后再次运行...")
+            logger.info(f"{'#'*60}\n")
+            
             time.sleep(interval_minutes * 60)
             
     except KeyboardInterrupt:
-        logger.info("程序被用户中断")
+        logger.info("\n程序被用户中断")
     except Exception as e:
         logger.error(f"持续运行出错: {str(e)}", exc_info=True)
 
 def main():
     """主函数"""
-    parser = argparse.ArgumentParser(description="特朗普社交媒体爬虫及AI分析器")
-    parser.add_argument("--once", action="store_true", help="只运行一次爬取和分析")
-    parser.add_argument("--interval", type=int, default=30, help="持续运行时，爬取和分析的间隔（分钟）")
+    parser = argparse.ArgumentParser(
+        description="特朗普社交媒体爬虫及AI分析发布系统",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+业务流程：
+  1. 采集 - 从Truth Social爬取特朗普最新帖子
+  2. 分析 - 使用QWEN、GROK、GEMINI三个AI进行投资分析
+  3. 生成 - 生成适合微信公众号的HTML文章
+  4. 发布 - 创建草稿并自动发布到微信公众号
+
+示例：
+  python main.py --once                    # 运行一次完整流程
+  python main.py --once --skip-publish     # 运行一次但跳过发布
+  python main.py --interval 30             # 每30分钟运行一次
+
+注意事项：
+  - 发布后会自动轮询状态，确认发布是否成功
+  - 发布成功后会返回文章链接
+  - 如发布失败会显示具体失败原因
+        """
+    )
+    
+    parser.add_argument("--once", action="store_true", 
+                       help="只运行一次完整流程（采集→分析→生成→发布）")
+    parser.add_argument("--interval", type=int, default=30, 
+                       help="持续运行时的间隔时间（分钟），默认30分钟")
+    parser.add_argument("--skip-publish", action="store_true",
+                       help="跳过微信发布步骤（仅采集、分析、生成）")
     
     args = parser.parse_args()
     
-    config.init() # 初始化日志和配置
+    # 初始化配置
+    config.init()
     
     if args.once:
-        logger.info("单次运行模式（爬取并分析）")
-        run_scraper(once=True)
+        logger.info("单次运行模式")
+        run_scraper(once=True, skip_publish=args.skip_publish)
     else:
-        logger.info(f"持续运行模式（爬取并分析），间隔时间: {args.interval}分钟")
-        continuous_run(args.interval)
+        logger.info(f"持续运行模式，间隔时间: {args.interval}分钟")
+        continuous_run(args.interval, skip_publish=args.skip_publish)
 
 if __name__ == "__main__":
     main()
