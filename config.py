@@ -28,14 +28,14 @@ SCREENSHOTS_DIR = BASE_DIR / "screenshots"  # 新增：截图目录
 
 # HTML选择器
 SELECTORS = {
-    "post": "div[data-testid='status']",  # 更新
+    "post": "div[data-testid='status']",  # 帖子选择器
+    "pinned_indicator": "div[role='status-info']",  # 置顶标记选择器
     "time": "time",
-    "text": "p[data-markup='true']",  # 更新
+    "text": "p[data-markup='true']",
     "image_container": "div[data-testid='still-image-container']",
     "image": "img",
-    "video_480p": "source[type='video/mp4'][data-quality='480p']", # 可以考虑更名
-    "video_generic": "video source[type='video/mp4']", # 新增或作为video的主要
-    # 可以考虑为帖子链接和文本内链接添加新的键
+    "video_480p": "source[type='video/mp4'][data-quality='480p']",
+    "video_generic": "video source[type='video/mp4']",
     "post_link_primary": 'a[href*="/posts/"]',
     "post_link_secondary": 'a[href*="/@realDonaldTrump/posts/"]',
     "text_embedded_link": "a[href]",

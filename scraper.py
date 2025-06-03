@@ -7,12 +7,68 @@ import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 import os
+import atexit
 
 import config
 from downloader import download_media
 
 # 获取logger
 logger = logging.getLogger(__name__)
+
+# 全局浏览器实例
+_browser = None
+_context = None
+_page = None
+_playwright = None
+
+def init_browser():
+    """初始化浏览器实例"""
+    global _browser, _context, _page, _playwright
+    
+    if _browser is None:
+        logger.info("初始化浏览器...")
+        _playwright = sync_playwright().start()
+        
+        # 启动浏览器（保持可见）
+        _browser = _playwright.chromium.launch(
+            headless=False,  # 保持浏览器可见
+            proxy={"server": "socks5://127.0.0.1:10808"},
+            args=['--disable-blink-features=AutomationControlled']
+        )
+        
+        # 创建上下文
+        _context = _browser.new_context(
+            viewport={'width': 1920, 'height': 1080},
+            ignore_https_errors=True
+        )
+        
+        # 创建页面
+        _page = _context.new_page()
+        logger.info("浏览器初始化完成")
+        
+        # 注册退出时的清理函数
+        atexit.register(cleanup_browser)
+    
+    return _page
+
+def cleanup_browser():
+    """清理浏览器资源"""
+    global _browser, _context, _page, _playwright
+    
+    logger.info("清理浏览器资源...")
+    if _page:
+        _page.close()
+        _page = None
+    if _context:
+        _context.close()
+        _context = None
+    if _browser:
+        _browser.close()
+        _browser = None
+    if _playwright:
+        _playwright.stop()
+        _playwright = None
+    logger.info("浏览器资源已清理")
 
 def fetch_page_and_screenshot():
     """
@@ -22,101 +78,121 @@ def fetch_page_and_screenshot():
         tuple: (BeautifulSoup对象, 截图路径)，失败则返回(None, None)
     """
     try:
-        logger.info(f"开始获取页面: {config.TARGET_URL}")
+        # 获取或初始化浏览器页面
+        page = init_browser()
         
-        with sync_playwright() as p:
-            # 启动浏览器（可配置为无头模式）
-            browser = p.chromium.launch(
-                headless=False,  # 改为无头模式以提高性能
-                proxy={"server": "socks5://127.0.0.1:10808"},
-                args=['--disable-blink-features=AutomationControlled']  # 避免被检测
-            )
-            
-            # 创建页面上下文，设置视口大小
-            context = browser.new_context(
-                viewport={'width': 1920, 'height': 1080},
-                ignore_https_errors=True
-            )
-            page = context.new_page()
-            
-            # 访问页面
+        # 检查是否已经在目标页面
+        current_url = page.url
+        if current_url.startswith(config.TARGET_URL):
+            logger.info(f"刷新页面: {config.TARGET_URL}")
+            # 如果已经在目标页面，刷新
+            page.reload(wait_until="networkidle")
+        else:
+            logger.info(f"导航到页面: {config.TARGET_URL}")
+            # 第一次访问或URL不匹配，导航到目标页面
             page.goto(config.TARGET_URL, wait_until="networkidle")
+        
+        # 等待帖子加载
+        try:
+            page.wait_for_selector(config.SELECTORS['post'], timeout=15000)
+            logger.info("帖子内容已加载")
+        except PlaywrightTimeoutError:
+            logger.error("等待帖子超时")
+            return None, None
+        
+        # 等待图片加载完成（如果有）
+        page.wait_for_timeout(2000)  # 额外等待2秒确保图片加载
+        
+        # 获取所有帖子元素
+        all_posts = page.locator(config.SELECTORS['post']).all()
+        
+        # 找到第一个非置顶的帖子
+        post_element = None
+        post_index = 0
+        
+        for i, post in enumerate(all_posts):
+            # 检查帖子是否包含置顶标记
+            pinned_indicator = post.locator(config.SELECTORS['pinned_indicator'])
             
-            # 等待帖子加载
-            try:
-                page.wait_for_selector(config.SELECTORS['post'], timeout=15000)
-                logger.info("帖子内容已加载")
-            except PlaywrightTimeoutError:
-                logger.error("等待帖子超时")
-                browser.close()
-                return None, None
+            # 检查是否存在置顶标记并且文本包含 "Pinned"
+            if pinned_indicator.count() > 0:
+                try:
+                    pinned_text = pinned_indicator.first.text_content()
+                    if pinned_text and "Pinned" in pinned_text:
+                        logger.info(f"跳过置顶帖子 (索引: {i})")
+                        continue
+                except:
+                    # 如果获取文本失败，也尝试下一个
+                    pass
             
-            # 等待图片加载完成（如果有）
-            page.wait_for_timeout(2000)  # 额外等待2秒确保图片加载
+            # 找到第一个非置顶帖子
+            post_element = post
+            post_index = i
+            logger.info(f"选择帖子 (索引: {post_index})")
+            break
+        
+        if not post_element:
+            logger.error("未找到非置顶的帖子")
+            return None, None
+        
+        # 滚动到帖子位置，确保完全可见
+        post_element.scroll_into_view_if_needed()
+        page.wait_for_timeout(500)  # 等待滚动完成
+        
+        # 隐藏可能的干扰元素（如固定的导航栏、弹窗等）
+        page.evaluate("""
+            // 隐藏可能的固定元素
+            const fixedElements = document.querySelectorAll('[style*="position: fixed"], [style*="position: sticky"]');
+            fixedElements.forEach(el => el.style.display = 'none');
             
-            # 获取第一个帖子元素
-            post_element = page.locator(config.SELECTORS['post']).first
+            // 隐藏可能的模态框
+            const modals = document.querySelectorAll('[role="dialog"], .modal, .popup');
+            modals.forEach(el => el.style.display = 'none');
             
-            # 滚动到帖子位置，确保完全可见
-            post_element.scroll_into_view_if_needed()
-            page.wait_for_timeout(500)  # 等待滚动完成
-            
-            # 隐藏可能的干扰元素（如固定的导航栏、弹窗等）
-            page.evaluate("""
-                // 隐藏可能的固定元素
-                const fixedElements = document.querySelectorAll('[style*="position: fixed"], [style*="position: sticky"]');
-                fixedElements.forEach(el => el.style.display = 'none');
+            // 隐藏cookie提示等
+            const banners = document.querySelectorAll('[class*="banner"], [class*="consent"], [class*="cookie"]');
+            banners.forEach(el => el.style.display = 'none');
+        """)
+        
+        # 生成截图文件名（使用时间戳，稍后会更新为content_id）
+        temp_screenshot_path = config.SCREENSHOTS_DIR / f"temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+        
+        # 对帖子元素进行截图
+        try:
+            # 获取帖子的边界框
+            bounding_box = post_element.bounding_box()
+            if bounding_box:
+                # 添加一些内边距，确保完整截图
+                padding = 20
+                clip = {
+                    'x': max(0, bounding_box['x'] - padding),
+                    'y': max(0, bounding_box['y'] - padding),
+                    'width': bounding_box['width'] + 2 * padding,
+                    'height': bounding_box['height'] + 2 * padding
+                }
                 
-                // 隐藏可能的模态框
-                const modals = document.querySelectorAll('[role="dialog"], .modal, .popup');
-                modals.forEach(el => el.style.display = 'none');
+                # 截图特定区域
+                page.screenshot(
+                    path=str(temp_screenshot_path),
+                    clip=clip,
+                    full_page=False
+                )
+                logger.info(f"帖子截图已保存到临时文件: {temp_screenshot_path}")
+            else:
+                # 如果无法获取边界框，使用元素截图方法
+                post_element.screenshot(path=str(temp_screenshot_path))
+                logger.info(f"帖子截图已保存（使用元素截图）: {temp_screenshot_path}")
                 
-                // 隐藏cookie提示等
-                const banners = document.querySelectorAll('[class*="banner"], [class*="consent"], [class*="cookie"]');
-                banners.forEach(el => el.style.display = 'none');
-            """)
-            
-            # 生成截图文件名（使用时间戳，稍后会更新为content_id）
-            temp_screenshot_path = config.SCREENSHOTS_DIR / f"temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
-            
-            # 对帖子元素进行截图
-            try:
-                # 获取帖子的边界框
-                bounding_box = post_element.bounding_box()
-                if bounding_box:
-                    # 添加一些内边距，确保完整截图
-                    padding = 20
-                    clip = {
-                        'x': max(0, bounding_box['x'] - padding),
-                        'y': max(0, bounding_box['y'] - padding),
-                        'width': bounding_box['width'] + 2 * padding,
-                        'height': bounding_box['height'] + 2 * padding
-                    }
-                    
-                    # 截图特定区域
-                    page.screenshot(
-                        path=str(temp_screenshot_path),
-                        clip=clip,
-                        full_page=False
-                    )
-                    logger.info(f"帖子截图已保存到临时文件: {temp_screenshot_path}")
-                else:
-                    # 如果无法获取边界框，使用元素截图方法
-                    post_element.screenshot(path=str(temp_screenshot_path))
-                    logger.info(f"帖子截图已保存（使用元素截图）: {temp_screenshot_path}")
-                    
-            except Exception as e:
-                logger.error(f"截图失败: {str(e)}")
-                temp_screenshot_path = None
-            
-            # 获取页面HTML
-            html = page.content()
-            
-            browser.close()
-            
-            soup = BeautifulSoup(html, 'html.parser')
-            logger.info("页面获取成功")
-            return soup, str(temp_screenshot_path) if temp_screenshot_path else None
+        except Exception as e:
+            logger.error(f"截图失败: {str(e)}")
+            temp_screenshot_path = None
+        
+        # 获取页面HTML
+        html = page.content()
+        
+        soup = BeautifulSoup(html, 'html.parser')
+        logger.info("页面获取成功")
+        return soup, str(temp_screenshot_path) if temp_screenshot_path else None
     
     except Exception as e:
         logger.error(f"获取页面失败: {str(e)}")
@@ -124,7 +200,7 @@ def fetch_page_and_screenshot():
 
 def extract_post_info(soup):
     """
-    从页面中提取最新帖子信息
+    从页面中提取最新的非置顶帖子信息
     
     Args:
         soup (BeautifulSoup): 解析后的页面
@@ -133,10 +209,30 @@ def extract_post_info(soup):
         dict: 帖子信息，包含ID、时间、文本、图片URL和视频URL
     """
     try:
-        # 找到第一个帖子 - 根据实际页面结构更新
-        post = soup.select_one(config.SELECTORS['post'])
+        # 找到所有帖子
+        all_posts = soup.select(config.SELECTORS['post'])
+        if not all_posts:
+            logger.error("未找到任何帖子")
+            return None
+        
+        # 找到第一个非置顶的帖子
+        post = None
+        for i, p in enumerate(all_posts):
+            # 检查是否包含置顶标记
+            pinned_indicator = p.select_one(config.SELECTORS['pinned_indicator'])
+            if pinned_indicator:
+                pinned_text = pinned_indicator.get_text(strip=True)
+                if "Pinned" in pinned_text:
+                    logger.info(f"跳过置顶帖子 (索引: {i})")
+                    continue
+            
+            # 找到第一个非置顶帖子
+            post = p
+            logger.info(f"处理帖子 (索引: {i})")
+            break
+        
         if not post:
-            logger.error("未找到帖子")
+            logger.error("未找到非置顶的帖子")
             return None
         
         # 提取内容ID
@@ -262,7 +358,7 @@ def process_post(post_info, screenshot_path=None):
             "time": post_info["time"],
             "text": post_info.get("text"),
             "url": post_info.get("url"),
-            "images": image_paths if image_paths else None,
+            "images": image_paths or [],
             "videos": video_path if video_path else None,
             "screenshot": str(final_screenshot_path) if final_screenshot_path else None  # 新增截图路径
         }

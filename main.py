@@ -7,7 +7,7 @@ import argparse
 from datetime import datetime
 
 import config
-from scraper import scrape_latest_post
+from scraper import scrape_latest_post, cleanup_browser
 from article_generator import ArticleGenerator
 from wechat_publisher import WechatPublisher
 
@@ -264,7 +264,7 @@ def run_scraper(once=False, skip_publish=False):
             logger.info(f"帖子ID: {current_post_id}")
             logger.info(f"发布时间: {scraped_data.get('time')}")
             logger.info(f"文本内容: {'有' if scraped_data.get('text') else '无'}")
-            logger.info(f"图片数量: {len(scraped_data.get('images', []))}")
+            logger.info(f"图片数量: {len(scraped_data.get('images') or [])}")
             logger.info(f"视频: {'有' if scraped_data.get('videos') else '无'}")
             logger.info(f"截图: {'已保存' if scraped_data.get('screenshot') else '未生成'}")
             logger.info(f"AI分析: QWEN-{'✓' if ai_results.get('qwen') and 'error' not in ai_results['qwen'] else '✗'}, "
@@ -280,6 +280,13 @@ def run_scraper(once=False, skip_publish=False):
     except Exception as e:
         logger.error(f"流程运行出错: {str(e)}", exc_info=True)
         return False
+
+def cleanup():
+    """清理资源"""
+    try:
+        cleanup_browser()
+    except Exception as e:
+        logger.error(f"清理浏览器失败: {e}")
 
 def continuous_run(interval_minutes, skip_publish=False):
     """持续运行爬虫，按指定间隔"""
@@ -301,8 +308,10 @@ def continuous_run(interval_minutes, skip_publish=False):
             
     except KeyboardInterrupt:
         logger.info("\n程序被用户中断")
+        cleanup()
     except Exception as e:
         logger.error(f"持续运行出错: {str(e)}", exc_info=True)
+        cleanup()
 
 def main():
     """主函数"""
