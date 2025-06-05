@@ -78,7 +78,7 @@ USE_UNDETECTED_CHROME=true
 修改 `scraper.py` 中的代理设置：
 
 ```python
-proxy={}  # 改成你的代理
+proxy={"server": "socks5://127.0.0.1:10808"}  # 改成你的代理
 ```
 
 ## 🎮 使用方法

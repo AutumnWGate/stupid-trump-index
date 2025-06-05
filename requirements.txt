@@ -1,0 +1,22 @@
+# 基础爬虫和网络请求
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+playwright>=1.40.0
+
+# 反爬虫解决方案（可选）
+undetected-chromedriver>=3.5.4
+selenium>=4.16.0
+
+# AI服务SDK
+dashscope>=1.19.0               # 通义千问
+openai>=1.6.0                   # Grok (使用OpenAI兼容接口)
+google-generativeai>=0.3.0      # Gemini
+
+# 环境变量管理
+python-dotenv>=1.0.0
+
+# 日志处理（如果需要彩色日志）
+colorlog>=6.8.0
+
+# 如果需要处理图片
+Pillow>=10.1.0 
