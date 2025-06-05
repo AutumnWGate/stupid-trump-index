@@ -7,7 +7,19 @@ import argparse
 from datetime import datetime
 
 import config
-from scraper import scrape_latest_post, cleanup_browser
+
+# 根据配置选择使用哪个scraper
+USE_UNDETECTED = os.getenv('USE_UNDETECTED_CHROME', 'true').lower() == 'true'
+
+if USE_UNDETECTED:
+    from scraper_undetected import scrape_latest_post, cleanup_browser
+    logger = logging.getLogger(__name__)
+    logger.info("使用 undetected-chromedriver 模式")
+else:
+    from scraper import scrape_latest_post, cleanup_browser
+    logger = logging.getLogger(__name__)
+    logger.info("使用 playwright 模式")
+
 from article_generator import ArticleGenerator
 from wechat_publisher import WechatPublisher
 
@@ -19,9 +31,6 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from models.qwen_analyzer import analyze_content_with_qwen
 from models.grok_analyzer import analyze_content_with_grok
 from models.gemini_analyzer import analyze_content_with_gemini
-
-# 获取logger
-logger = logging.getLogger(__name__)
 
 def get_last_post_id():
     """获取上次抓取的帖子ID"""
@@ -47,13 +56,14 @@ def get_last_post_id():
         logger.error(f"获取上次帖子ID失败: {str(e)}")
         return None
 
-def run_scraper(once=False, skip_publish=False):
+def run_scraper(once=False, skip_publish=False, post_index=None):
     """
     运行完整的业务流程：采集 → 分析 → 生成 → 发布
     
     Args:
         once (bool): 是否单次运行模式
         skip_publish (bool): 是否跳过发布步骤
+        post_index (int): 要采集的非置顶帖子索引
     """
     try:
         logger.info("="*60)
@@ -71,7 +81,10 @@ def run_scraper(once=False, skip_publish=False):
             logger.info("首次运行，尚无历史记录")
         
         # 执行爬取
-        scraped_data = scrape_latest_post()
+        if USE_UNDETECTED:
+            scraped_data = scrape_latest_post(post_index=post_index)
+        else:
+            scraped_data = scrape_latest_post()
         
         if not scraped_data:
             logger.warning("未能获取任何帖子")
@@ -343,6 +356,8 @@ def main():
                        help="持续运行时的间隔时间（分钟），默认30分钟")
     parser.add_argument("--skip-publish", action="store_true",
                        help="跳过微信发布步骤（仅采集、分析、生成）")
+    parser.add_argument("--post-index", type=int, default=None,
+                       help="指定要采集的非置顶帖子索引（从0开始）。例如：--post-index 2 表示采集第三个帖子")
     
     args = parser.parse_args()
     
@@ -351,7 +366,7 @@ def main():
     
     if args.once:
         logger.info("单次运行模式")
-        run_scraper(once=True, skip_publish=args.skip_publish)
+        run_scraper(once=True, skip_publish=args.skip_publish, post_index=args.post_index)
     else:
         logger.info(f"持续运行模式，间隔时间: {args.interval}分钟")
         continuous_run(args.interval, skip_publish=args.skip_publish)

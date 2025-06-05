@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 import os
 import atexit
+import random
+import time as time_module
 
 import config
 from downloader import download_media
@@ -29,22 +31,125 @@ def init_browser():
         logger.info("初始化浏览器...")
         _playwright = sync_playwright().start()
         
-        # 启动浏览器（保持可见）
-        _browser = _playwright.chromium.launch(
+        # 创建用户数据目录路径
+        user_data_dir = str(config.BROWSER_USER_DATA_DIR)
+        
+        # 启动浏览器参数
+        launch_args = [
+            '--disable-blink-features=AutomationControlled',  # 隐藏自动化特征
+            '--disable-infobars',  # 禁用信息栏
+            '--disable-dev-shm-usage',  # 解决资源限制问题
+            '--no-sandbox',  # 在某些环境下需要
+            '--disable-web-security',  # 禁用同源策略（谨慎使用）
+            '--disable-features=IsolateOrigins,site-per-process',  # 禁用站点隔离
+            '--flag-switches-begin',
+            '--disable-site-isolation-trials',
+            '--flag-switches-end',
+            f'--user-agent={config.BROWSER_CONFIG["user_agent"]}',  # 设置用户代理
+            '--start-maximized',  # 最大化窗口
+            '--disable-gpu',  # 禁用GPU加速（某些环境需要）
+            '--lang=en-US',  # 设置语言
+            '--disable-background-timer-throttling',  # 禁用后台标签页限制
+            '--disable-backgrounding-occluded-windows',
+            '--disable-renderer-backgrounding',
+            '--disable-features=TranslateUI',  # 禁用翻译提示
+            '--disable-ipc-flooding-protection',
+            '--disable-default-apps',
+            '--no-first-run',  # 跳过首次运行
+            '--password-store=basic',  # 密码存储
+            '--use-mock-keychain',
+        ]
+        
+        # 启动浏览器（使用持久化的用户数据）
+        _browser = _playwright.chromium.launch_persistent_context(
+            user_data_dir=user_data_dir,
             headless=False,  # 保持浏览器可见
             proxy={"server": "socks5://127.0.0.1:10808"},
-            args=['--disable-blink-features=AutomationControlled']
+            args=launch_args,
+            viewport=config.BROWSER_CONFIG["viewport"],
+            locale=config.BROWSER_CONFIG["locale"],
+            timezone_id=config.BROWSER_CONFIG["timezone"],
+            user_agent=config.BROWSER_CONFIG["user_agent"],
+            ignore_https_errors=True,
+            # 添加更多真实浏览器的设置
+            java_script_enabled=True,
+            has_touch=False,
+            is_mobile=False,
+            device_scale_factor=1,
+            accept_downloads=True,
+            # 权限设置
+            permissions=["geolocation", "notifications"],
+            # 绕过CSP
+            bypass_csp=True,
+            # 启用服务工作者
+            service_workers="allow",
+            # 颜色方案
+            color_scheme="light",
+            # 减少运动
+            reduced_motion="no-preference",
+            # 强制颜色
+            forced_colors="none",
         )
         
-        # 创建上下文
-        _context = _browser.new_context(
-            viewport={'width': 1920, 'height': 1080},
-            ignore_https_errors=True
-        )
+        # 获取第一个页面或创建新页面
+        if _browser.pages:
+            _page = _browser.pages[0]
+        else:
+            _page = _browser.new_page()
+            
+        # 注入一些JavaScript来进一步隐藏自动化特征
+        _page.add_init_script("""
+            // 重写navigator.webdriver属性
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+            
+            // 修改navigator.plugins使其看起来更真实
+            Object.defineProperty(navigator, 'plugins', {
+                get: () => [
+                    {
+                        0: {type: "application/x-google-chrome-pdf", suffixes: "pdf", description: "Portable Document Format"},
+                        description: "Portable Document Format",
+                        filename: "internal-pdf-viewer",
+                        length: 1,
+                        name: "Chrome PDF Plugin"
+                    },
+                    {
+                        0: {type: "application/pdf", suffixes: "pdf", description: "Portable Document Format"},
+                        description: "Portable Document Format", 
+                        filename: "mhjfbmdgcfjbbpaeojofohoefgiehjai",
+                        length: 1,
+                        name: "Chrome PDF Viewer"
+                    }
+                ]
+            });
+            
+            // 修改权限查询
+            const originalQuery = window.navigator.permissions.query;
+            window.navigator.permissions.query = (parameters) => (
+                parameters.name === 'notifications' ?
+                    Promise.resolve({ state: Notification.permission }) :
+                    originalQuery(parameters)
+            );
+            
+            // 修改chrome对象
+            window.chrome = {
+                runtime: {},
+                loadTimes: function() {},
+                csi: function() {},
+                app: {}
+            };
+            
+            // 修改语言相关属性
+            Object.defineProperty(navigator, 'languages', {
+                get: () => ['en-US', 'en']
+            });
+            
+            // 时区欺骗
+            Date.prototype.getTimezoneOffset = function() { return 300; }; // EST时区
+        """)
         
-        # 创建页面
-        _page = _context.new_page()
-        logger.info("浏览器初始化完成")
+        logger.info("浏览器初始化完成（使用持久化用户数据）")
         
         # 注册退出时的清理函数
         atexit.register(cleanup_browser)
@@ -56,15 +161,11 @@ def cleanup_browser():
     global _browser, _context, _page, _playwright
     
     logger.info("清理浏览器资源...")
-    if _page:
-        _page.close()
-        _page = None
-    if _context:
-        _context.close()
-        _context = None
+    # 注意：使用 launch_persistent_context 时，browser 就是 context
     if _browser:
         _browser.close()
         _browser = None
+        _page = None
     if _playwright:
         _playwright.stop()
         _playwright = None
@@ -81,16 +182,34 @@ def fetch_page_and_screenshot():
         # 获取或初始化浏览器页面
         page = init_browser()
         
+        # 添加随机延迟，模拟人类行为
+        time_module.sleep(random.uniform(1, 3))
+        
         # 检查是否已经在目标页面
         current_url = page.url
         if current_url.startswith(config.TARGET_URL):
             logger.info(f"刷新页面: {config.TARGET_URL}")
-            # 如果已经在目标页面，刷新
-            page.reload(wait_until="networkidle")
+            # 随机选择刷新方式
+            if random.choice([True, False]):
+                page.reload(wait_until="networkidle")
+            else:
+                # 使用 F5 键刷新
+                page.keyboard.press("F5")
+                page.wait_for_load_state("networkidle")
         else:
             logger.info(f"导航到页面: {config.TARGET_URL}")
             # 第一次访问或URL不匹配，导航到目标页面
             page.goto(config.TARGET_URL, wait_until="networkidle")
+        
+        # 模拟人类行为：随机滚动
+        for _ in range(random.randint(1, 3)):
+            scroll_amount = random.randint(100, 500)
+            page.mouse.wheel(0, scroll_amount)
+            time_module.sleep(random.uniform(0.5, 1.5))
+        
+        # 滚动回顶部
+        page.mouse.wheel(0, -2000)
+        time_module.sleep(random.uniform(0.5, 1))
         
         # 等待帖子加载
         try:
